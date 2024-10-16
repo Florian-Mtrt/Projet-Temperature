@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from sklearn.model_selection import train_test_split
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.stattools import adfuller
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.metrics import mean_absolute_error
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
@@ -20,6 +20,8 @@ from sklearn.ensemble import AdaBoostRegressor
 from sklearn.linear_model import ARDRegression
 from sklearn.linear_model import SGDRegressor
 from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
 
 @st.cache
 def load_data_owid():
@@ -817,4 +819,20 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_fm_1)
 
-  
+  #Régression Polynomiale
+  X = df_ZonAnn_Ts_dSST[['Year']]
+  y = df_ZonAnn_Ts_dSST['Glob']
+
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+  poly_degree = 3
+  poly_model = make_pipeline(PolynomialFeatures(degree=poly_degree), LinearRegression())
+  poly_model.fit(X_train, y_train)
+  y_poly_pred = poly_model.predict(X_test)
+  mse_poly = mean_squared_error(y_test, y_poly_pred)
+  rmse_poly = np.sqrt(mse_poly)
+  r2_poly = r2_score(y_test, y_poly_pred)
+
+  st.write(f'Score MSE (Polynomial): {mse_poly}')
+  st.write(f'Score RMSE (Polynomial): {rmse_poly}')
+  st.write(f'Score R² (Polynomial): {r2_poly}')
