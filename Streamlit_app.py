@@ -869,7 +869,13 @@ if page == pages[3] :
   if p_value > 0.05:
       df_ZonAnn_Ts_dSST['Température Diff'] = df_ZonAnn_Ts_dSST['Glob'].diff().dropna()
 
-  p, d, q = 1, 1, 1
+  @st.cache_data
+  def load_arima_params():
+      p, d, q = 10, 3, 60
+      return p, d, q
+
+  p, d, q = load_arima_params()
+
   model = ARIMA(df_ZonAnn_Ts_dSST['Glob'], order=(p, d, q))
   model_fit = model.fit()
   st.write(f'AIC: {model_fit.aic}')
