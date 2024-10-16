@@ -750,8 +750,8 @@ if page == pages[3] :
   Le but de modélisation est de prédire l'évolution des températures, par rapport à la référence, dans les années futures.
   Nous avons des travaux précédents des données au niveau monte, à la maille de chaque hémisphère et découpées en zone de latitude.
   Les hypothèses suivantes ont été prises:
-        1) Un modèle entraîné sur les doonées du monde devrait être applicables sur les différents découpages
-        2) Il est possible de prédire l'évolution enfonction des années et/ou du CO2
+  - Un modèle entraîné sur les doonées du monde devrait être applicables sur les différents découpages
+  - Il est possible de prédire l'évolution enfonction des années et/ou du CO2
 
   Première approche: essai "naïf" de différents modèles de régression:
   """
