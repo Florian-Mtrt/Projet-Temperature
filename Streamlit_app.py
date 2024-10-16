@@ -695,7 +695,17 @@ if page == pages[2] :
 
   df_merge_fm2 = pd.merge(df_ZonAnn_Ts_dSST_fm2, df_ZonAnn_Ts_dSST_zone, on="year", how="left")
   df_merge_fm2.fillna(value={'64N-90N': 0, '44N-64N': 0, '24N-44N': 0, 'EQU-24N': 0, '24S-EQU': 0, '44S-24S': 0, '64S-44S': 0, '90S-64S': 0}, inplace=True)
-    
+
+  missing_zones = df_merge_fm2['zones'].isna().sum()
+  if missing_zones > 0:
+      print(f"Il y a {missing_zones} valeurs manquantes dans la colonne 'zones'.")
+  def get_temperature(row):
+      try:
+          return row[row['zones']]
+      except KeyError:
+          return None
+  df_merge_fm2['temperature'] = df_merge_fm2.apply(get_temperature, axis=1)
+
   df_filtered_fm2 = df_merge_fm2[df_merge_fm2["year"] % 10 == 0]
   st.write("Colonnes dans df_filtered_fm2 :", df_filtered_fm2.columns)
   st.write("Colonnes dans df_merge_fm2 :", df_merge_fm2.columns)
