@@ -195,7 +195,19 @@ if page == pages[2] :
   Grâce aux données GitHub concernant les émissions de CO2 par année, nous pouvons constater une augmentation de ces émissions dans le monde au fil du temps.
   Nous pouvons même remarquer une forte augmentation après 1950.
   """
+  df_america = df_github[df_github['country'].isin(['North America (GCP)', 'South America (GCP)', 'Central America (GCP)'])]
+  df_america_data = df_america.groupby('year')['co2'].sum().reset_index()
+  df_america_data['country'] = 'America (GCP)'
+  df_github_bis = pd.concat([df_github, df_america_data], ignore_index=True)
+  df_continents = df_github_bis[df_github_bis['country'].isin(['Africa (GCP)','America (GCP)','Asia (GCP)','Europe (GCP)','Oceania (GCP)'])]
 
+  fig_fd_2 = sns.lineplot(x='year', y='co2', hue='country', data=df_continents)
+  plt.title('Emissions de CO2 par année par continents')
+  plt.xlabel('Années')
+  plt.ylabel('Emissions de CO2 (en millions de tonnes)')
+  plt.legend()
+
+  st.pyplot(fig_fd_2.get_figure())
   """
   Nous affichons ici les émissions de CO2 par année et par continent.
   Nous pouvons remarquer qu'à partir des années 1990 il y a un croisement entre l'Europe, l'Amérique et l'Asie.
