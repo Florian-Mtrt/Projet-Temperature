@@ -808,18 +808,25 @@ if page == pages[3] :
   texte_modelisation_y_2 = """
     Le modèle offrant les meilleurs résultats (avec ses hyper-paramètres par défaut) est le Random Forest Regressor.
   C'est lui qui sera considéré pour la suite.
-  Pour avoir une vue d'ensemble, visualisons les prédictions de température pour les 2 hémisphères avec la tendence globale
   """
   st.write(texte_modelisation_y_2)
     
-  fig_y = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temperature_change"], mode="lines", name = "T°C réelle, monde", marker_color = "green"),
-          go.Scatter(x= df_y_pred["year"], y=df_y_pred["prediction"], mode="markers", name = "predictions", marker_color = "green"),
-          go.Scatter(x= df_hem_N["year"], y=df_hem_N["temperature_change"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "blue"),
+  fig_y_1 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temperature_change"], mode="lines", name = "T°C réelle, monde", marker_color = "green"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["prediction"], mode="markers", name = "predictions", marker_color = "green")))
+  fig_y_1.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))         
+  st.plotly_chart(fig_y_1, use_container_width=True)
+
+  texte_modelisation_y_3 = """
+  Le modèle entrainé sur le jeu de données monde (ou globale) a ensuite été appliqué sur les jeu de données des différentes hémisphères (sud et nor)
+  """
+  st.write(texte_modelisation_y_3)
+    
+  fig_y_2 = go.Figure(data = (go.Scatter(x= df_hem_N["year"], y=df_hem_N["temperature_change"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "blue"),
           go.Scatter(x= df_hem_N["year"], y=df_hem_N["prediction"], mode="markers", name = "predictions", marker_color = "blue"),
           go.Scatter(x= df_hem_S["year"], y=df_hem_S["temperature_change"], mode="lines", name = "T°C réelle, hémisphère sud", marker_color = "red"),
           go.Scatter(x= df_hem_S["year"], y=df_hem_S["prediction"], mode="markers", name = "predictions", marker_color = "red")))
-  fig_y.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))         
-  st.plotly_chart(fig_y, use_container_width=True)
+  fig_y_2.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))         
+  st.plotly_chart(fig_y_2, use_container_width=True)
           
   st.title("Prédiction des futures données de température")
   texte_modelisation_fm_1 = """
