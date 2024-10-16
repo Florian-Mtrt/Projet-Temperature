@@ -56,8 +56,8 @@ if page == pages[0] :
   
   L’objectif de ce projet est de constater le réchauffement climatique et le dérèglement climatique global à l’échelle de la planète sur les derniers siècles et dernières décennies. Ce phénomène sera analysé au niveau mondial et par zone géographique. 
   \n
-  \n
-  Le projet a été piloté par Philippe Grenesche, Yves Liais, Florian Matrat et moi-même Florian Delattre
+  
+  Le projet a été piloté par Philippe Grenesche, Yves Liais, Florian Matrat et Florian Delattre
   \n
   et a été supervisé par Alain Ferlac.
 
