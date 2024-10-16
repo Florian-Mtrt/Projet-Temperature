@@ -227,6 +227,7 @@ if page == pages[2] :
                  title="Evolution des écarts de températures avec lissage de nuage de points localement pondérée",
                  width=1000, height=400)
   st.plotly_chart(fig5)
+    
   ##########################################################
 
   df_github_fm = df_github[["country", "year", "iso_code"]]
@@ -720,7 +721,7 @@ if page == pages[2] :
                       range_color=range_color,
                       projection="natural earth")
 
-  st.title("Visualisation de l'écart des Températures au fil des ans")
+  st.title("### Visualisation de l'écart des Températures au fil des ans")
   st.plotly_chart(fig)
 
 ##########################################################
