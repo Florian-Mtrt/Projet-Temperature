@@ -72,10 +72,12 @@ if page == pages[1] :
   st.write("### II. COMPRÉHENSION ET MANIPULATION DES DONNÉES")
   st.write("#### Cadre")
   texte_cadre = """
-  Les données utilisées sont celles de la NASA et de Our World in Data. Elles sont accessibles librement sur le site de la NASA et via GitHub.
-  Concernant les données de la NASA nous avons accès à 4 fichiers. GLB, NH et SH sont structurés en 145 lignes de 19 colonnes.
+  Les données utilisées sont celles de la NASA et de Our World in Data via GitHub. 
+  \n
+  Concernant les données de la NASA nous avons accès à 4 fichiers. 
+  GLB, NH et SH sont structurés en 145 lignes de 19 colonnes.
   ZonAnn est organisé en 144 lignes sur 15 colonnes. Nous avons une ligne de moins car nous n’avons pas de données pour l’année 2024.
-
+  \n
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
 
   Rappel des ressources à consulter :
