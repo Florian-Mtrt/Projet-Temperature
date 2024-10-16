@@ -54,11 +54,12 @@ if page == pages[0] :
   st.write("### I. INTRODUCTION AU PROJET")
   texte_introduction_au_projet = """
   
-  L’objectif de ce projet est de constater le réchauffement climatique et le dérèglement climatique global à l’échelle de la planète sur les derniers siècles et dernières décennies. Ce phénomène sera analysé au niveau mondial et par zone géographique. 
+  L’objectif de ce projet est de constater le réchauffement climatique et le dérèglement climatique global à l’échelle de la planète sur les derniers siècles et dernières décennies.
+  <br> Ce phénomène sera analysé au niveau mondial et par zone géographique. 
   \n
   
   Le projet a été piloté par Philippe Grenesche, Yves Liais, Florian Matrat et Florian Delattre
-  \n
+  <br>
   et a été supervisé par Alain Ferlac.
 
   """
@@ -72,10 +73,10 @@ if page == pages[1] :
   st.write("### II. COMPRÉHENSION ET MANIPULATION DES DONNÉES")
   st.write("#### Cadre")
   texte_cadre = """
-  Les données utilisées sont celles de la _NASA_ et de *Our World in Data via GitHub*. 
+  Les données utilisées sont celles de la **NASA** et de *Our World in Data* via **GitHub**. 
   \n
-  Concernant les données de la NASA nous avons accès à 4 fichiers. 
-  GLB, NH et SH sont structurés en 145 lignes de 19 colonnes.
+  Concernant les données de la NASA nous avons accès à 4 fichiers. <br>
+  GLB, NH et SH sont structurés en 145 lignes de 19 colonnes.<br>
   ZonAnn est organisé en 144 lignes sur 15 colonnes. Nous avons une ligne de moins car nous n’avons pas de données pour l’année 2024.
   \n
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
