@@ -819,10 +819,10 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_fm_1)
 
-  #Régression Polynomiale
+  st.write("### 1. Modélisation de la Régression Polynomiale")
+    
   X = df_ZonAnn_Ts_dSST[['Year']]
   y = df_ZonAnn_Ts_dSST['Glob']
-
   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
   poly_degree = 3
@@ -838,8 +838,6 @@ if page == pages[3] :
 
   st.write("0.118 indique que, en moyenne, les prédictions du modèle s'écartent des valeurs réelles d'environ 0.12 °C.")
 
-  st.write("### 1. Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)")
-
   X_range = np.linspace(X['Year'].min(), X['Year'].max(), 100).reshape(-1, 1)
   y_range_pred = poly_model.predict(X_range)
 
@@ -847,10 +845,72 @@ if page == pages[3] :
   plt.scatter(X_test, y_test, color='blue', label='Données Réelles')
   plt.plot(X_range, y_range_pred, color='red', label='Prédictions Polynomiales')
   plt.errorbar(X_test, y_poly_pred, yerr=rmse_poly, fmt='o', color='orange', label='Intervalle d\'Erreur (RMSE)')
+  plt.title('Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)')
   plt.xlabel('Année')
   plt.ylabel('Température Globale (°C)')
   plt.legend()
   plt.grid()
   st.plotly_chart(fig_poly)
 
-  st.write("### 2. Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)")
+  st.write("### 2. Modélisation deu modèle ARIMA")
+
+   @st.cache
+  def perform_adfuller_test(series):
+      result = adfuller(series)
+      return result[0], result[1]
+
+  @st.cache
+  def train_model(data):
+      model = ARIMA(data, order=(1, 1, 1))
+      model_fit = model.fit()
+      return model_fit.aic  # Retourne une valeur simple pour éviter des objets non hashables
+
+  @st.cache
+  def make_predictions(model_fit_aic, steps):
+      # Ajuste le modèle ici pour effectuer des prédictions
+      model = ARIMA(train_data, order=(1, 1, 1))  # Entraîne à nouveau
+      model_fit = model.fit()  # Fit le modèle
+      return model_fit.forecast(steps=steps)
+
+  df_ZonAnn_Ts_dSST = load_data_zonann()
+
+  # Test de stationnarité
+  adf_stat, p_value = perform_adfuller_test(df_ZonAnn_Ts_dSST['Glob'])
+  st.write(f'Statistique du test ADF : {adf_stat}')
+  st.write(f'p-value: {p_value}')
+
+  # Vérifier si la série est stationnaire
+  if p_value > 0.05:
+      df_ZonAnn_Ts_dSST['Glob'] = df_ZonAnn_Ts_dSST['Glob'].diff().dropna()
+
+  # Diviser les données en train et test
+  train_size = int(0.8 * len(df_ZonAnn_Ts_dSST))
+  train_data = df_ZonAnn_Ts_dSST['Glob'][:train_size].dropna()
+  test_data = df_ZonAnn_Ts_dSST['Glob'][train_size:].dropna()
+
+  # Ajuster le modèle ARIMA sur les données d'entraînement
+  model_fit_aic = train_model(train_data)
+
+  # Prédictions sur l'ensemble de test
+  predictions = make_predictions(model_fit_aic, len(test_data))
+  mse_arima = mean_squared_error(test_data, predictions)
+  st.write(f'Erreur Quadratique Moyenne du modèle ARIMA: {mse_arima}')
+
+  # Prédictions futures
+  years_to_predict = 2050 - 2023 + 1
+  future_predictions_G = make_predictions(model_fit_aic, steps=years_to_predict)
+
+  # Créer un DataFrame pour les années futures
+  future_years = np.arange(2023, 2051)
+  future_df_G = pd.DataFrame({'Year': future_years, 'Prédictions': future_predictions_G})
+
+  # ---- VISUALISATION ---- #
+  fig_pred = plt.figure(figsize=(12, 8))
+  plt.plot(train_data.index, train_data, label='Données d\'Entraînement')
+  plt.plot(test_data.index, test_data, color='blue', label='Données Réelles')
+  plt.plot(future_df_G['Year'], future_df_G['Prédictions'], color='green', linestyle='--', label='Prédictions Futures ARIMA')
+  plt.title('Données historiques avec des prédictions ARIMA pour les 25 prochaines années (1880 à 2050)')
+  plt.xlabel('Année')
+  plt.ylabel('Température Globale (°C)')
+  plt.legend()
+  st.pyplot(fig_pred)
