@@ -721,7 +721,7 @@ if page == pages[2] :
                       range_color=range_color,
                       projection="natural earth")
 
-  st.title("### Visualisation de l'écart des Températures au fil des ans")
+  st.title("### 6. Visualisation de l'écart des Températures au fil des ans")
   st.plotly_chart(fig)
 
 ##########################################################
