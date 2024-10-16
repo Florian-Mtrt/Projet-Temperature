@@ -832,7 +832,24 @@ if page == pages[3] :
   mse_poly = mean_squared_error(y_test, y_poly_pred)
   rmse_poly = np.sqrt(mse_poly)
   r2_poly = r2_score(y_test, y_poly_pred)
+  st.write(f'Score MSE (Régression polynomiale): {mse_poly}')
+  st.write(f'Score RMSE (Régression polynomiale): {rmse_poly}')
+  st.write(f'Score R² (Régression polynomiale): {r2_poly}')
 
-  st.write(f'Score MSE (Polynomial): {mse_poly}')
-  st.write(f'Score RMSE (Polynomial): {rmse_poly}')
-  st.write(f'Score R² (Polynomial): {r2_poly}')
+  st.write("0.118 indique que, en moyenne, les prédictions du modèle s'écartent des valeurs réelles d'environ 0.12 °C.")
+
+  X_range = np.linspace(X['Year'].min(), X['Year'].max(), 100).reshape(-1, 1)
+  y_range_pred = poly_model.predict(X_range)
+
+  fig_poly = plt.figure(figsize=(10, 6))
+  plt.scatter(X_test, y_test, color='blue', label='Données Réelles')
+  plt.plot(X_range, y_range_pred, color='red', label='Prédictions Polynomiales')
+  plt.errorbar(X_test, y_poly_pred, yerr=rmse_poly, fmt='o', color='orange', label='Intervalle d\'Erreur (RMSE)')
+  plt.title('Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)')
+  plt.xlabel('Année')
+  plt.ylabel('Température Globale (°C)')
+  plt.legend()
+  plt.grid()
+  st.plotly_chart(fig_poly)
+
+  
