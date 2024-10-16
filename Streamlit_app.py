@@ -741,9 +741,9 @@ if page == pages[2] :
 if page == pages[3] :
   st.write("### IV. Modélisation")
     # récupération des df déjà traité
-  df_y = pd.read_csv(filepath_or_buffer='/content/drive/MyDrive/mar24_cda_temperature/BDD_Projet/Donnees_NASA/df_y.csv')
-  df_hem_y = pd.read_csv(filepath_or_buffer='/content/drive/MyDrive/mar24_cda_temperature/BDD_Projet/Donnees_NASA/df_hem_y.csv')
-  df_lat_y = pd.read_csv(filepath_or_buffer='/content/drive/MyDrive/mar24_cda_temperature/BDD_Projet/Donnees_NASA/df_lat_y.csv')
+  df_y = pd.read_csv('Donnees_NASA/df_y.csv')
+  df_hem_y = pd.read_csv('Donnees_NASA/df_hem_y.csv')
+  df_lat_y = pd.read_csv('df_lat_y.csv')
 
   texte_modelisation_y_1 = """
   Le but de modélisation est de prédire l'évolution des températures, par rapport à la référence, dans les années futures.
