@@ -745,8 +745,9 @@ if page == pages[3] :
   st.write("### IV. Modélisation")
     # récupération des df déjà traité
   df_y = pd.read_csv('df_y.csv')
-  df_hem_y = pd.read_csv('df_hem_y.csv')
-  df_lat_y = pd.read_csv('df_lat_y.csv')
+  df_y_pred = pd.read_csv('df_y_pred.csv')
+  df_hem_N = pd.read_csv('df_hem_N.csv')
+  df_hem_S = pd.read_csv('df_hem_S.csv')
 
   texte_modelisation_y_1 = """
   Le but de modélisation est de prédire l'évolution des températures, par rapport à la référence, dans les années futures.
@@ -811,12 +812,9 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_y_2)
 
-  df_hem_y["prediction"] = rfr.predict(df_hem_y.drop(["temperature_change"], axis = "columns"))
-  df_y["prediction"] = rfr.predict(X)
-
   fig_y = go.Figure()
-  fig_y.add_trace(go.Scatter(df_y, x="year", y="temperature_change", mode="lines", name="T°C réelle, monde", marker_color="red"))
-  fig_y.add_trace(go.Scatter(df_y, x="year", y="prediction", mode="lines", name="prédiction, monde", marker_color="red"))                 
+  fig_y.add_trace(go.Scatter(df_y_pred, x="year", y="temperature_change", mode="lines", name="T°C réelle, monde", marker_color="red"))
+  fig_y.add_trace(go.Scatter(df_y_pred, x="year", y="prediction", mode="lines", name="prédiction, monde", marker_color="red"))                 
 
   st.plotly_chart(fig_y)
           
