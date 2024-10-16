@@ -860,8 +860,10 @@ if page == pages[3] :
   
   # Test de stationnarité
   result = adfuller(df_ZonAnn_Ts_dSST['Glob'])
-  st.write(f'Statistique du test ADF : {result[0]}')
-  st.write(f'p-value: {result[1]}')
+  adf_stat = result[0]
+  p_value = result[1]
+  st.write(f'Statistique du test ADF : {adf_stat}')
+  st.write(f'p-value: {p_value}')
 
   # Vérifier si la série est stationnaire
   if p_value > 0.05:
