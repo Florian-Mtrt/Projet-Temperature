@@ -55,12 +55,9 @@ if page == pages[0] :
   texte_introduction_au_projet = """
   
   L’objectif de ce projet est de constater le réchauffement climatique et le dérèglement climatique global à l’échelle de la planète sur les derniers siècles et dernières décennies.
-  
   Ce phénomène sera analysé au niveau mondial et par zone géographique. 
-  \n
   
   Le projet a été piloté par Philippe Grenesche, Yves Liais, Florian Matrat et Florian Delattre
-  
   et a été supervisé par Alain Ferlac.
 
   """
@@ -75,13 +72,11 @@ if page == pages[1] :
   st.write("#### Cadre")
   texte_cadre = """
   Les données utilisées sont celles de la **NASA** et de *Our World in Data* via **GitHub**. 
-  \n
+  
   Concernant les données de la NASA nous avons accès à 4 fichiers.
-  
   GLB, NH et SH sont structurés en 145 lignes de 19 colonnes.
-  
   ZonAnn est organisé en 144 lignes sur 15 colonnes. Nous avons une ligne de moins car nous n’avons pas de données pour l’année 2024.
-  \n
+  
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
 
   Rappel des ressources à consulter :
@@ -93,22 +88,20 @@ if page == pages[1] :
 
   st.write("#### Pertinence")
   texte_pertinence = """
-  Quelles variables vous semblent les plus pertinentes au regard de vos objectifs ?
+ 
   Les variables les plus pertinentes que nous avons sélectionnées pour établir nos datavisualisations sont :
 
   NASA :
-
-  - la période (année/mois/saisons) pour suivre les évolutions dans le temps
-  - les écarts de température au fil du temps
-  - le zonage géographique (hémisphères)
+  - la **période** (année/mois/saisons) pour suivre les évolutions dans le temps
+  - les **écarts de température** au fil du temps
+  - le **zonage géographique** (hémisphères)
 
   GitHub :
-
-  - Nom des pays
-  - ISO CODE des pays
-  - Années
-  - Densité de population par pays
-  - Émissions total annuelles de CO₂ (en millions de tonnes)
+  - **Nom des pays**
+  - **ISO CODE des pays**
+  - **Années**
+  - **Densité de population par pays*
+  - **Émissions total annuelles de CO₂** (en millions de tonnes)
   - Émissions annuelles de CO₂ (par habitant)
   - Émissions cumulées totales de CO₂ (en millions de tonnes)
   - Consommation d'énergie primaire par habitant (en kWh par habitant)
@@ -122,20 +115,12 @@ if page == pages[1] :
   - Émissions totales de gaz à effet de serre (en millions de tonnes)
 
 
-  Quelle est la variable cible ?
-
-  Notre principale variable cible est l’écart de température par rapport à la moyenne comprise pour la période 1951-1980 (Dataframe de la NASA).
-
   Quelles particularités de votre jeu de données pouvez-vous mettre en avant ?
 
-  Les données provenant de GitHub ne couvrent pas les mêmes périodes que les données fournies par la NASA (Les données de la NASA couvrent la période de 1880 jusqu'à aujourd'hui, tandis que les données de GitHub incluent des informations antérieures à 1880.)
+  Les données provenant de GitHub ne couvrent pas les mêmes périodes que les données fournies par la NASA.
+  Les données de la NASA couvrent la période de 1880 jusqu'à aujourd'hui, tandis que les données de GitHub incluent des informations antérieures à 1880.
   Les données provenant de GitHub ont énormément de valeurs manquantes.
-  Cela peut entraîner un manque d’information (NaN) qui peut poser problème pour la partie visualisation. Nous avons choisi de ne pas garder ses “NaN” pour ne pas influencer les graphiques.
-  Il y a également beaucoup d'occurrences répétées pour le même pays ou “code iso” dans le fichier GitHub.
-
-  Etes-vous limités par certaines de vos données ?
-
-  Certaines variables contiennent très peu d'informations, ce qui limite leur utilisation à des plus petites périodes d’observation.
+  
   """
   st.write(texte_pertinence)
 
