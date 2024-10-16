@@ -70,17 +70,21 @@ if page == pages[0] :
 if page == pages[1] :
   st.write("### II. COMPRÉHENSION ET MANIPULATION DES DONNÉES")
   st.write("#### Cadre")
-  texte_cadre1 = """
+  texte_cadre1_1 = """
   Les données utilisées sont celles de la **NASA** et de *Our World in Data* via **GitHub**. 
   
   Concernant les données de la NASA nous avons accès à 4 fichiers.
   GLB, NH et SH sont structurés en 145 lignes de 19 colonnes.
   ZonAnn est organisé en 144 lignes sur 15 colonnes. Nous avons une ligne de moins car nous n’avons pas de données pour l’année 2024.
-  
+  """
+  texte_cadre1_2"""
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
   """
-  st.write(texte_cadre1)
-  st.write(df_github['country'=='world'].head())
+  st.write(texte_cadre1_1)
+  st.write(df_GLB_NASA.head())
+  st.write(df_ZonAnn_Ts_dSST.head())
+  st.write(texte_cadre1_2)
+  st.write(df_github.head())
     
   texte_cadre2 = """
   Rappel des ressources à consulter :
