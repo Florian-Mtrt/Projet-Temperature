@@ -72,7 +72,7 @@ if page == pages[1] :
   st.write("### II. COMPRÉHENSION ET MANIPULATION DES DONNÉES")
   st.write("#### Cadre")
   texte_cadre = """
-  Les données utilisées sont celles de la NASA et de Our World in Data via GitHub. 
+  Les données utilisées sont celles de la *NASA* et de *Our World in Data via GitHub*. 
   \n
   Concernant les données de la NASA nous avons accès à 4 fichiers. 
   GLB, NH et SH sont structurés en 145 lignes de 19 colonnes.
