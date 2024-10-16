@@ -713,9 +713,11 @@ if page == pages[2] :
   fig = px.choropleth(df_filtered_fm2,
                       locations="iso_code",
                       color="temperature",
+                      hover_name="country",
+                      animation_frame="year",
                       color_continuous_scale=px.colors.sequential.Plasma,
-                      labels={'temperature': 'Température'},
-                      title='Changement de température par pays')
+                      range_color=range_color,
+                      projection="natural earth")
 
   st.title("Visualisation des Changements de Température")
   st.plotly_chart(fig)
