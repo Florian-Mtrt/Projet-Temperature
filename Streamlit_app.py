@@ -697,10 +697,10 @@ if page == pages[2] :
   df_merge_fm2.fillna(value={'64N-90N': 0, '44N-64N': 0, '24N-44N': 0, 'EQU-24N': 0, '24S-EQU': 0, '44S-24S': 0, '64S-44S': 0, '90S-64S': 0}, inplace=True)
     
   df_filtered_fm2 = df_merge_fm2[df_merge_fm2["year"] % 10 == 0]
+  st.write("Colonnes dans df_filtered_fm2 :", df_filtered_fm2.columns)
+    
   min_temp_change = df_filtered_fm2["temperature"].min()
   max_temp_change = df_filtered_fm2["temperature"].max()
-
-  st.write("Colonnes dans df_filtered_fm2 :", df_filtered_fm2.columns)
 
   fig = px.choropleth(df_filtered_fm2,
                       locations="iso_code",
