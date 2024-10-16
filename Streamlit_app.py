@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.stattools import adfuller
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.tree import ExtraTreeRegressor
