@@ -188,7 +188,7 @@ if page == pages[2] :
   plt.xlabel('Années')
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
 
-  st.pyplot(fig_fd_1.get_figure())
+  st.pyplot(fig_fd_1)
   """
   L'impact le plus important est causé par le Dioxyde de carbone, avant le Méthane et le Protoxyde d'azote.
   """
