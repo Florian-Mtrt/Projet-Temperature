@@ -39,11 +39,16 @@ def load_data_nasa_bis():
 def load_data_zonann():
     return pd.read_csv('ZonAnn.Ts+dSST.csv', header=0)
 
+@st.cache
+def load_data_zonann_bis():
+    return pd.read_csv('ZonAnn.Ts+dSST.csv', header=0, index_col=0)
+
 # Chargement des données
 df_github = load_data_owid()
 df_GLB_NASA = load_data_nasa()
 df_GLB_NASA_bis = load_data_nasa_bis()
 df_ZonAnn_Ts_dSST = load_data_zonann()
+df_ZonAnn_Ts_dSST_bis = load_data_zonann_bis()
 
 st.title("Température Terrestre")
 
@@ -87,7 +92,7 @@ if page == pages[1] :
   """
   st.write(texte_cadre1_1)
   st.write(df_GLB_NASA_bis.head())
-  st.write(df_ZonAnn_Ts_dSST.head())
+  st.write(df_ZonAnn_Ts_dSST_bis.head())
   st.write(texte_cadre1_2)
   st.write(df_github.head())
     
