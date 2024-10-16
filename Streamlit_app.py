@@ -78,7 +78,10 @@ if page == pages[1] :
   ZonAnn est organisé en 144 lignes sur 15 colonnes. Nous avons une ligne de moins car nous n’avons pas de données pour l’année 2024.
   
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
-
+  """
+  st.df_github.head()
+    
+  """
   Rappel des ressources à consulter :
 
   NASA : https://data.giss.nasa.gov/gistemp/
@@ -156,7 +159,31 @@ if page == pages[1] :
 if page == pages[2] :
   st.write("### III. DataVisualisation")
 
-  st.write("### 1. Boite à moustache des écarts de température à la période de référence par saison et par période")
+  st.write("### 1. Evolution des émissions de Gaz à effet de serres dans le monde")
+
+  """
+  Nous commençons par examiner les tendances mondiales, en montrant l'augmentation des concentrations des différents types de GES (Gaz à Effet de Serres) dans l'atmosphère
+  et principalement du dioxyde de carbone (CO₂), qui est l'un des principaux moteurs du réchauffement climatique.
+  """
+
+  """
+  L'impact le plus important est causé par le Dioxyde de carbone, avant le Méthane et le Protoxyde d'azote.
+  """
+
+  """
+  Grâce aux données GitHub concernant les émissions de CO2 par année, nous pouvons constater une augmentation de ces émissions dans le monde au fil du temps.
+  Nous pouvons même remarquer une forte augmentation après 1950.
+  """
+
+  """
+  Nous affichons ici les émissions de CO2 par année et par continent.
+  Nous pouvons remarquer qu'à partir des années 1990 il y a un croisement entre l'Europe, l'Amérique et l'Asie.
+  L'Europe devient le moins émetteur des 3 suite à une forte baisse.
+  L'Amérique entame également un ralentissement après les années 2000.
+  Au contraire, l'Asie a fortement augmenté ses émissions après les années 1950. A partir de 2000 c'est le continent le plus émetteur de CO2.
+  """
+  
+  st.write("### 2. Boite à moustache des écarts de température à la période de référence par saison et par période")
 
   df_GLB_NASA = df_GLB_NASA.replace('***', float('NaN'))
   df_GLB_NASA[df_GLB_NASA.columns[3:]] = df_GLB_NASA[df_GLB_NASA.columns[3:]].astype('float')
@@ -180,7 +207,7 @@ if page == pages[2] :
 
   st.plotly_chart(fig1)
 
-  st.write("### 2. Swarmplot des écarts de température à la période de référence par saison et par période")
+  st.write("### 3. Swarmplot des écarts de température à la période de référence par saison et par période")
 
 
   sns.color_palette(palette = "OrRd", as_cmap=True)
@@ -189,7 +216,7 @@ if page == pages[2] :
   plt.ylabel('Ecart de températures')
   st.pyplot(fig2)
 
-  st.write("### 3. Catplot des écarts de température à la période de référence par période et par saison")
+  st.write("### 4. Catplot des écarts de température à la période de référence par période et par saison")
 
   sns.color_palette(palette = "OrRd", as_cmap=True)
   fig3 = sns.catplot(x = "sub_Period", y = "Value", hue = 'Season', data = df_season.loc[df_season['Season'] != "Year"], aspect=2,palette = "OrRd")
@@ -197,7 +224,7 @@ if page == pages[2] :
   plt.ylabel('Ecart de températures')
   st.pyplot(fig3)
 
-  st.write("### 4. Scatterplot des écarts de température à la période de référence par saison, regression linéaire")
+  st.write("### 5. Scatterplot des écarts de température à la période de référence par saison, regression linéaire")
 
   fig4 = px.scatter(df_season, x="Year", y="Value", color="Season",
                     trendline="ols", # ligne de lissage de nuage de points des moindres carrés
@@ -211,7 +238,7 @@ if page == pages[2] :
                     width=1000, height=400)
   st.plotly_chart(fig4)
 
-  st.write("### 5. Scatterplot des écarts de température à la période de référence par saison, regression localement pondérée")
+  st.write("### 6. Scatterplot des écarts de température à la période de référence par saison, regression localement pondérée")
 
   fig5 = px.scatter(df_season, x="Year", y="Value", color="Season",
                  trendline='lowess', # ligne de lissage de nuage de points localement pondérée
