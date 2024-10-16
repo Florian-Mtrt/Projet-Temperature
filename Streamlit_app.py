@@ -9,6 +9,16 @@ from sklearn.model_selection import train_test_split
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.stattools import adfuller
 from sklearn.metrics import mean_squared_error
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import ExtraTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import StackingRegressor
+from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.ensemble import AdaBoostRegressor
+from sklearn.linear_model import ARDRegression
+from sklearn.linear_model import SGDRegressor
+from sklearn.ensemble import GradientBoostingRegressor
 
 @st.cache
 def load_data_owid():
@@ -730,7 +740,74 @@ if page == pages[2] :
 
 if page == pages[3] :
   st.write("### IV. Modélisation")
+    # récupération des df déjà traité
+  df_y = pd.read_csv(filepath_or_buffer='/content/drive/MyDrive/mar24_cda_temperature/BDD_Projet/Donnees_NASA/df_y.csv')
+  df_hem_y = pd.read_csv(filepath_or_buffer='/content/drive/MyDrive/mar24_cda_temperature/BDD_Projet/Donnees_NASA/df_hem_y.csv')
+  df_lat_y = pd.read_csv(filepath_or_buffer='/content/drive/MyDrive/mar24_cda_temperature/BDD_Projet/Donnees_NASA/df_lat_y.csv')
 
+    texte_modelisation_y_1 = """
+    Le but de modélisation est de prédire l'évolution des températures, par rapport à la référence, dans les années futures.
+    Nous avons des travaux précédents des données au niveau monte, à la maille de chaque hémisphère et découpées en zone de latitude.
+    Les hypothèses suivantes ont été prises:
+        1) Un modèle entraîné sur les doonées du monde devrait être applicables sur les différents découpages
+        2) Il est possible de prédire l'évolution enfonction des années et/ou du CO2
+
+    Première approche: essai "naïf" de différents modèles de régression:
+"""
+st.write(texte_modelisation_y_1)
+
+# séparation des variables explicatives de la variable cible
+X = df_y.drop(["temperature_change"], axis = "columns")
+y = df_y["temperature_change"]
+
+# instanciation des modèles
+reg = LinearRegression()
+dtr = DecisionTreeRegressor()
+rfr = RandomForestRegressor()
+hgb = HistGradientBoostingRegressor()
+abr = AdaBoostRegressor()
+ext = ExtraTreeRegressor()
+sgd = ARDRegression()
+gbr = GradientBoostingRegressor()
+
+modeles = [("regression lineaire", reg), 
+           ("decision tree regressor", dtr), 
+           ("random forest regressor", rfr),
+           ("HistGradientBoosting regressor", hgb), 
+           ("Ada boosting regressor", abr), 
+           ("Extra Tree regressor", ext), 
+           ("ARD Regression", sgd), 
+           ("Gradient boosting regressor", gbr)]
+
+# création du dataframe de stockage des résultats
+resultats = pd.DataFrame(columns = ["Nom", "score_train", "score_test", "MAE","MSE","RMSE"])
+# séparation du jeu de données
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, shuffle=True)
+i = resultats.shape[0]
+for model in modeles:
+# entrainement
+    model[1].fit(X_train, y_train)
+    # prediction
+    y_pred = model[1].predict(X_test)
+    # calcul des résultats
+    resultats.loc[i, "Nom"] = model[0]
+    resultats.loc[i, "score_train"] = model[1].score(X_train, y_train)
+    resultats.loc[i, "score_test"] = model[1].score(X_test, y_test)
+    resultats.loc[i, "MAE"] = mean_absolute_error(y_test, y_pred)
+    resultats.loc[i, "MSE"] = mean_squared_error(y_test, y_pred)
+    resultats.loc[i, "RMSE"] = np.sqrt(mean_squared_error(y_test, y_pred))
+    i += 1
+
+# affihage du tableau de résultats
+st.dataframe(resultats.sort_values(by = "score_test", ascending = False).head(8))
+
+texte_modelisation_y_2 = """
+  Le modèle offrant les meilleurs résultats (avec ses hyper-paramètres par défaut) est le Random Forest Regressor.
+  C'est lui qui sera considéré pour la suite.
+  Pour avoir une vue d'ensemble, visualisons les prédictions de température pour les 2 hémisphères avec la tendence globale
+  """
+st.write(texte_modelisation_y_2)
+    
   st.write("#### Prédiction des futures données de température")
   texte_modelisation_fm_1 = """
   Pour le choix du modèle, nous avons testé plusieurs algorithmes, parmi lesquels le modèle ARIMA a été retenu pour prédire les températures jusqu'en 2050.
