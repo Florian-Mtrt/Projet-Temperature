@@ -32,12 +32,17 @@ def load_data_nasa():
     return pd.read_csv('GLB.Ts+dSST.csv', header=1, index_col=1)
 
 @st.cache
+def load_data_nasa_bis():
+    return pd.read_csv('GLB.Ts+dSST.csv', header=1, index_col=0)
+
+@st.cache
 def load_data_zonann():
     return pd.read_csv('ZonAnn.Ts+dSST.csv', header=0)
 
 # Chargement des données
 df_github = load_data_owid()
 df_GLB_NASA = load_data_nasa()
+df_GLB_NASA_bis = load_data_nasa_bis()
 df_ZonAnn_Ts_dSST = load_data_zonann()
 
 st.title("Température Terrestre")
@@ -81,7 +86,7 @@ if page == pages[1] :
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
   """
   st.write(texte_cadre1_1)
-  st.write(df_GLB_NASA.head())
+  st.write(df_GLB_NASA_bis.head())
   st.write(df_ZonAnn_Ts_dSST.head())
   st.write(texte_cadre1_2)
   st.write(df_github.head())
