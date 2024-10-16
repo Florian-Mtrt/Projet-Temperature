@@ -709,6 +709,7 @@ if page == pages[2] :
   df_filtered_fm2 = df_merge_fm2[df_merge_fm2["year"] % 10 == 0]
   min_temp_change = df_filtered_fm2["temperature"].min()
   max_temp_change = df_filtered_fm2["temperature"].max()
+  range_color = [min_temp_change * 0, max_temp_change * 0.8]
 
   fig = px.choropleth(df_filtered_fm2,
                       locations="iso_code",
