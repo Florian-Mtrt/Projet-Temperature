@@ -70,7 +70,7 @@ if page == pages[0] :
 if page == pages[1] :
   st.write("### II. COMPRÉHENSION ET MANIPULATION DES DONNÉES")
   st.write("#### Cadre")
-  texte_cadre = """
+  texte_cadre1 = """
   Les données utilisées sont celles de la **NASA** et de *Our World in Data* via **GitHub**. 
   
   Concernant les données de la NASA nous avons accès à 4 fichiers.
@@ -79,16 +79,16 @@ if page == pages[1] :
   
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
   """
-
-st.write(df_github.head())
+  st.write(texte_cadre1)
+  st.write(df_github.head())
     
-  """
+  texte_cadre2 = """
   Rappel des ressources à consulter :
 
   NASA : https://data.giss.nasa.gov/gistemp/
   GitHub : https://github.com/owid/co2-data
   """
-  st.write(texte_cadre)
+  st.write(texte_cadre2)
 
   st.write("#### Pertinence")
   texte_pertinence = """
