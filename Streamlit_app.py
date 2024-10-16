@@ -109,12 +109,12 @@ if page == pages[1] :
  
   Les variables les plus pertinentes que nous avons sélectionnées pour établir nos datavisualisations sont :
 
-  NASA :
+  *NASA* :
   - la **période** (année/mois/saisons) pour suivre les évolutions dans le temps
   - les **écarts de température** au fil du temps
   - le **zonage géographique** (hémisphères)
 
-  GitHub :
+  *GitHub* :
   - **Nom des pays**
   - **ISO CODE des pays**
   - **Années**
@@ -133,7 +133,8 @@ if page == pages[1] :
   - Émissions totales de gaz à effet de serre (en millions de tonnes)
 
 
-  *Particularités du jeu de données :*
+  *Particularités du jeu de données* :
+  
   Les données provenant de **GitHub ne couvrent pas les mêmes périodes que les données fournies par la NASA**.
   Les données de la NASA couvrent la période de 1880 jusqu'à aujourd'hui, tandis que les données de GitHub incluent des informations antérieures à 1880.
   Les données provenant de GitHub ont **énormément de valeurs manquantes**.
@@ -180,7 +181,14 @@ if page == pages[2] :
   Nous commençons par examiner les tendances mondiales, en montrant l'augmentation des concentrations des différents types de GES (Gaz à Effet de Serres) dans l'atmosphère
   et principalement du dioxyde de carbone (CO₂), qui est l'un des principaux moteurs du réchauffement climatique.
   """
+  df_world_fd = df_github[df_github['country']=='World']
 
+  fig_fd_1 = sns.lineplot(x='year', y='co2', data=df_world_fd)
+  plt.title('Emissisons de CO2 dans le monde par année')
+  plt.xlabel('Années')
+  plt.ylabel('Emissions de CO2 (en millions de tonnes)')
+
+  st.write(fig_fd_1)
   """
   L'impact le plus important est causé par le Dioxyde de carbone, avant le Méthane et le Protoxyde d'azote.
   """
