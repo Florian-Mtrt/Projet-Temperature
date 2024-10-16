@@ -77,7 +77,7 @@ if page == pages[1] :
   GLB, NH et SH sont structurés en 145 lignes de 19 colonnes.
   ZonAnn est organisé en 144 lignes sur 15 colonnes. Nous avons une ligne de moins car nous n’avons pas de données pour l’année 2024.
   """
-  texte_cadre1_2"""
+  texte_cadre1_2 = """
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
   """
   st.write(texte_cadre1_1)
