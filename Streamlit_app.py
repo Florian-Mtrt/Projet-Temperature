@@ -854,7 +854,7 @@ if page == pages[3] :
 
   st.write("### 2. Modélisation deu modèle ARIMA")
 
-   @st.cache
+  @st.cache
   def perform_adfuller_test(series):
       result = adfuller(series)
       return result[0], result[1]
