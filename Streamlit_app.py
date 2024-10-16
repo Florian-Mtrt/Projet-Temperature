@@ -182,7 +182,7 @@ if page == pages[2] :
   et principalement du dioxyde de carbone (CO₂), qui est l'un des principaux moteurs du réchauffement climatique.
   """
 
-  fig_fd_1 = sns.lineplot(x='year', y='co2', data=df_github[df_github['country']=='World')
+  fig_fd_1 = sns.lineplot(x='year', y='co2', data=df_github[df_github['country']=='World'])
   plt.title('Emissisons de CO2 dans le monde par année')
   plt.xlabel('Années')
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
