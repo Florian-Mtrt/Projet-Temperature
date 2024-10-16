@@ -820,7 +820,7 @@ if page == pages[3] :
   fig_y.add_trace(go.Scatter(x= df_hem_S["year"], y=df_hem_S["temperature_change"], mode="lines", name = "T°C réelle, hémisphère sud", marker_color = "red"))
   fig_y.add_trace(go.Scatter(x= df_hem_S["year"], y=df_hem_S["prediction"], mode="markers", name = "predictions", marker_color = "red"))
   fig_y.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))         
-  st.plotly_chart(fig_y)
+  st.plotly_chart(fig_y, use_container_width=True)
           
   st.title("Prédiction des futures données de température")
   texte_modelisation_fm_1 = """
