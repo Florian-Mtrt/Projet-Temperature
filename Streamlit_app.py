@@ -79,7 +79,8 @@ if page == pages[1] :
   
   Concernant les données GitHub, nous y trouvons 47416 lignes pour 79 colonnes.
   """
-  st.write(df_github.head())
+
+    st.write(df_github.head())
     
   """
   Rappel des ressources à consulter :
