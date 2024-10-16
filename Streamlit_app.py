@@ -183,7 +183,7 @@ if page == pages[2] :
   """
 
   fig_fd_1 = sns.lineplot(x='year', y='co2', data=df_github[df_github['country']=='World'])
-  plt.figure(figsize=(10,10))
+  plt.figure(figsize=(6,6))
   plt.title('Emissisons de CO2 dans le monde par année')
   plt.xlabel('Années')
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
