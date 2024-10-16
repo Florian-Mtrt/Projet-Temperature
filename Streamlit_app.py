@@ -100,7 +100,7 @@ if page == pages[1] :
   - **Nom des pays**
   - **ISO CODE des pays**
   - **Années**
-  - **Densité de population par pays*
+  - **Densité de population par pays**
   - **Émissions total annuelles de CO₂** (en millions de tonnes)
   - Émissions annuelles de CO₂ (par habitant)
   - Émissions cumulées totales de CO₂ (en millions de tonnes)
@@ -115,45 +115,37 @@ if page == pages[1] :
   - Émissions totales de gaz à effet de serre (en millions de tonnes)
 
 
-  Quelles particularités de votre jeu de données pouvez-vous mettre en avant ?
-
-  Les données provenant de GitHub ne couvrent pas les mêmes périodes que les données fournies par la NASA.
+  *Particularités du jeu de données :*
+  Les données provenant de **GitHub ne couvrent pas les mêmes périodes que les données fournies par la NASA**.
   Les données de la NASA couvrent la période de 1880 jusqu'à aujourd'hui, tandis que les données de GitHub incluent des informations antérieures à 1880.
-  Les données provenant de GitHub ont énormément de valeurs manquantes.
+  Les données provenant de GitHub ont **énormément de valeurs manquantes**.
   
   """
   st.write(texte_pertinence)
 
   st.write("### Pre-processing et feature engineering")
   texte_Pre_processing = """
-  Avez-vous eu à nettoyer et à traiter les données ? Si oui, décrivez votre processus de traitement.
 
-  Oui, sur le dataset de la NASA GLB_Ts_dSST il a fallu opérer quelques modifications  :
-  remplacer les *** par NaN pour pouvoir convertir les colonnes de valeurs en type ‘float’
-  dé-pivoter les colonnes de ‘mois’ en lignes avec pd.melt
-  encoder en valeur numérique les variables mois en valeur alphabétique
-  concaténer 'année’ et ‘mois’ pour utiliser le date_time pandas
-  encoder les périodes de 3 mois pour faire les 4 saisons
+  Sur le dataset de la NASA GLB_Ts_dSST il a fallu opérer quelques modifications :
+  - remplacer les *** par NaN pour pouvoir convertir les colonnes de valeurs en type ‘float’
+  - dé-pivoter les colonnes de ‘mois’ en lignes avec pd.melt
+  - encoder en valeur numérique les variables mois en valeur alphabétique
+  - concaténer 'année’ et ‘mois’ pour utiliser le date_time pandas
+  - encoder les périodes de 3 mois pour faire les 4 saisons
 
   Concernant GitHub, pour faire le merge (la fusion) des deux dataframes NASA  GLB_Ts_dSST et GitHub il a également fallu également opérer des transformations :
-  faire un sous dataframe de Github pour filtrer sur la variable country = ‘world’ pour corréler à la zone géographique du dataset de la NASA  GLB_Ts_dSST
-  filtrer sur la variable Year supérieur ou égal à  1880 pour corréler avec la période d’observation du dataset de la NASA  GLB_Ts_dSST
-  ne retenir que les variables utiles et pertinentes du dataset GitHub (78 colonnes dans Github, trop d’information)
+  - faire un sous dataframe de Github pour filtrer sur la variable country = ‘world’ pour corréler à la zone géographique du dataset de la NASA  GLB_Ts_dSST
+  - filtrer sur la variable Year supérieur ou égal à  1880 pour corréler avec la période d’observation du dataset de la NASA  GLB_Ts_dSST
+  - ne retenir que les variables utiles et pertinentes du dataset GitHub (78 colonnes dans Github, trop d’information)
 
   Concernant le graphique représentant la hausse de la température moyenne mondiale par zones (globe terrestre).
-
-  Créer des sous Dataframes de “wid-co2-data” et “ZonAnn_Ts_dSST” pour conserver uniquement les variables utiles au graphique.
-  Renommer la colonne “year” pour pouvoir effectuer un merge des Dataframes par la suite.
-  Créer 2 dictionnaires, le premier est un mapping entre les codes ISO et les hémisphères (Sud - Équateur - Nord).
-  Le second un mapping entre les codes ISO et les zones par hémisphères (3 zones pour le Sud et le Nord, 2 pour l’équateur).
-  L’ajout des colonnes “hemisphere” et “zones” pour chaque dataframes.
-  L’ajout d’une colonne “temperature” qui récupère le bon écart de température en fonction de la colonne “hemisphere” ou “zones”.
-  Puis la création de la carte choroplèthe sous Plotly
-
-  Avez-vous dû procéder à des transformations de vos données de type normalisation/standardisation ? Si oui, pourquoi ?
-  Envisagez-vous des techniques de réduction de dimension dans la partie de modélisation ? Si oui, pourquoi ?
-
-  Nous inclurons dans notre prochain rapport une section dédiée au machine learning, qui nous permettra de mieux comprendre et anticiper le réchauffement climatique.
+  - Créer des sous Dataframes de “wid-co2-data” et “ZonAnn_Ts_dSST” pour conserver uniquement les variables utiles au graphique.
+  - Renommer la colonne “year” pour pouvoir effectuer un merge des Dataframes par la suite.
+  - Créer 2 dictionnaires, le premier est un mapping entre les codes ISO et les hémisphères (Sud - Équateur - Nord).
+  - Le second un mapping entre les codes ISO et les zones par hémisphères (3 zones pour le Sud et le Nord, 2 pour l’équateur).
+  - L’ajout des colonnes “hemisphere” et “zones” pour chaque dataframes.
+  - L’ajout d’une colonne “temperature” qui récupère le bon écart de température en fonction de la colonne “hemisphere” ou “zones”.
+  - Puis la création de la carte choroplèthe sous Plotly
   """
   st.write(texte_Pre_processing)
 
