@@ -716,16 +716,12 @@ if page == pages[2] :
                       color="temperature",
                       hover_name="country",
                       animation_frame="year",
-                      color_continuous_scale=px.colors.sequential.Plasma,
+                      color_continuous_scale=px.colors.sequential.Reds,
                       range_color=range_color,
                       projection="natural earth")
 
   st.title("Visualisation des Changements de Température")
   st.plotly_chart(fig)
-
-  if st.checkbox('Afficher les données filtrées'):
-      st.write(df_filtered_fm2)
-
 
 ##########################################################
 #MODELISATION
