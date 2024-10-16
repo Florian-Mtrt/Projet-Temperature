@@ -811,7 +811,7 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_y_2)
     
-  st.write("#### Prédiction des futures données de température")
+  st.title("#### Prédiction des futures données de température")
   texte_modelisation_fm_1 = """
   Pour prédire les futures valeurs de données de température nous avons également testé la Régression polynomiale et le modèle ARIMA qui sont tous deux interessants dans un contexte de modélisation de séries temporelles, comme les changements de température terrestre.
   Pour le choix du modèle, et suite au test de ces plusieurs algorithmes, le modèle ARIMA a été retenu pour prédire les températures jusqu'en 2050 car il obtient des résultats plus réel.
@@ -853,4 +853,4 @@ if page == pages[3] :
   plt.grid()
   st.plotly_chart(fig_poly)
 
-  
+  st.write("### 2. Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)")
