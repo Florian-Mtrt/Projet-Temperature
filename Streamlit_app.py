@@ -181,9 +181,8 @@ if page == pages[2] :
   Nous commençons par examiner les tendances mondiales, en montrant l'augmentation des concentrations des différents types de GES (Gaz à Effet de Serres) dans l'atmosphère
   et principalement du dioxyde de carbone (CO₂), qui est l'un des principaux moteurs du réchauffement climatique.
   """
-  df_world_fd = df_github[df_github['country']=='World']
 
-  fig_fd_1 = sns.lineplot(x='year', y='co2', data=df_world_fd)
+  fig_fd_1 = sns.lineplot(x='year', y='co2', data=df_github[df_github['country']=='World')
   plt.title('Emissisons de CO2 dans le monde par année')
   plt.xlabel('Années')
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
