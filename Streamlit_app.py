@@ -27,10 +27,6 @@ df_github = load_data_owid()
 df_GLB_NASA = load_data_nasa()
 df_ZonAnn_Ts_dSST = load_data_zonann()
 
-#df_github = pd.read_csv('owidco2data.csv', header=0)
-#df_GLB_NASA = pd.read_csv('GLB.Ts+dSST.csv', header=1, index_col=1)
-#df_ZonAnn_Ts_dSST = pd.read_csv('ZonAnn.Ts+dSST.csv', header=0)
-
 st.title("Température Terrestre")
 
 st.sidebar.title("Sommaire")
@@ -231,6 +227,270 @@ if page == pages[2] :
                  title="Evolution des écarts de températures avec lissage de nuage de points localement pondérée",
                  width=1000, height=400)
   st.plotly_chart(fig5)
+  ##########################################################
+
+  df_github_fm = df_github[["country", "year", "iso_code"]]
+  df_ZonAnn_Ts_dSST_fm = df_ZonAnn_Ts_dSST.rename(columns={"Year": "year"})
+  df_ZonAnn_Ts_dSST_hem = df_ZonAnn_Ts_dSST_fm[["year", "24N-90N", "24S-24N", "90S-24S"]]
+  df_ZonAnn_Ts_dSST_zone = df_ZonAnn_Ts_dSST_fm[["year", "64N-90N", "44N-64N", "24N-44N", "EQU-24N", "24S-EQU", "44S-24S", "64S-44S", "90S-64S"]]
+  iso_code_unique = df_github["iso_code"].unique()
+
+  iso_code_zones = {
+      'AFG': "24N-44N",
+      'ALB': "24N-44N",
+      'DZA': "24N-44N",
+      'AND': "24N-44N",
+      'AGO': "24S-EQU",
+      'AIA': "EQU-24N",
+      'ATA': "90S-64S",
+      'ATG': "EQU-24N",
+      'ARG': "44S-24S",
+      'ARM': "24N-44N",
+      'ABW': "EQU-24N",
+      'AUS': "44S-24S",
+      'AUT': "44N-64N",
+      'AZE': "24N-44N",
+      'BHS': "EQU-24N",
+      'BHR': "24N-44N",
+      'BGD': "24N-44N",
+      'BRB': "EQU-24N",
+      'BLR': "44N-64N",
+      'BEL': "44N-64N",
+      'BLZ': "EQU-24N",
+      'BEN': "EQU-24N",
+      'BMU': "24N-44N",
+      'BTN': "24N-44N",
+      'BOL': "24S-EQU",
+      'BES': "44N-64N",
+      'BIH': "44N-64N",
+      'BWA': "24S-EQU",
+      'BRA': "24S-EQU",
+      'VGB': "EQU-24N",
+      'BRN': "EQU-24N",
+      'BGR': "24N-44N",
+      'BFA': "EQU-24N",
+      'BDI': "24S-EQU",
+      'KHM': "EQU-24N",
+      'CMR': "EQU-24N",
+      'CAN': "44N-64N",
+      'CPV': "EQU-24N",
+      'CAF': "EQU-24N",
+      'TCD': "EQU-24N",
+      'CHL': "44S-24S",
+      'CHN': "24N-44N",
+      'CXR': "24S-EQU",
+      'COL': "EQU-24N",
+      'COM': "24S-EQU",
+      'COG': "24S-EQU",
+      'COK': "24S-EQU",
+      'CRI': "EQU-24N",
+      'CIV': "EQU-24N",
+      'HRV': "44N-64N",
+      'CUB': "EQU-24N",
+      'CUW': "EQU-24N",
+      'CYP': "24N-44N",
+      'CZE': "44N-64N",
+      'COD': "24S-EQU",
+      'DNK': "44N-64N",
+      'DJI': "EQU-24N",
+      'DMA': "EQU-24N",
+      'DOM': "EQU-24N",
+      'TLS': "24S-EQU",
+      'ECU': "24S-EQU",
+      'EGY': "24N-44N",
+      'SLV': "EQU-24N",
+      'GNQ': "EQU-24N",
+      'ERI': "EQU-24N",
+      'EST': "44N-64N",
+      'SWZ': "44S-24S",
+      'ETH': "EQU-24N",
+      'FRO': "44N-64N",
+      'FJI': "24S-EQU",
+      'FIN': "44N-64N",
+      'FRA': "44N-64N",
+      'PYF': "24S-EQU",
+      'GAB': "24S-EQU",
+      'GMB': "EQU-24N",
+      'GEO': "24N-44N",
+      'DEU': "44N-64N",
+      'GHA': "EQU-24N",
+      'GRC': "24N-44N",
+      'GRL': "64N-90N",
+      'GRD': "EQU-24N",
+      'GTM': "EQU-24N",
+      'GIN': "EQU-24N",
+      'GNB': "EQU-24N",
+      'GUY': "EQU-24N",
+      'HTI': "EQU-24N",
+      'HND': "EQU-24N",
+      'HKG': "24N-44N",
+      'HUN': "44N-64N",
+      'ISL': "64N-90N",
+      'IND': "24N-44N",
+      'IDN': "24S-EQU",
+      'IRN': "24N-44N",
+      'IRQ': "24N-44N",
+      'IRL': "44N-64N",
+      'ISR': "24N-44N",
+      'ITA': "24N-44N",
+      'JAM': "EQU-24N",
+      'JPN': "24N-44N",
+      'JOR': "24N-44N",
+      'KAZ': "44N-64N",
+      'KEN': "EQU-24N",
+      'KIR': "24S-EQU",
+      'KWT': "24N-44N",
+      'KGZ': "24N-44N",
+      'LAO': "24N-44N",
+      'LVA': "44N-64N",
+      'LBN': "24N-44N",
+      'LSO': "24S-EQU",
+      'LBR': "EQU-24N",
+      'LBY': "24N-44N",
+      'LIE': "44N-64N",
+      'LTU': "44N-64N",
+      'LUX': "44N-64N",
+      'MAC': "24N-44N",
+      'MDG': "24S-EQU",
+      'MWI': "24S-EQU",
+      'MYS': "24S-EQU",
+      'MDV': "EQU-24N",
+      'MLI': "EQU-24N",
+      'MLT': "24N-44N",
+      'MHL': "24S-EQU",
+      'MRT': "EQU-24N",
+      'MUS': "24S-EQU",
+      'MEX': "EQU-24N",
+      'FSM': "24S-EQU",
+      'MDA': "44N-64N",
+      'MCO': "24N-44N",
+      'MNG': "44N-64N",
+      'MNE': "44N-64N",
+      'MSR': "EQU-24N",
+      'MAR': "24N-44N",
+      'MOZ': "24S-EQU",
+      'MMR': "24N-44N",
+      'NAM': "24S-EQU",
+      'NRU': "24S-EQU",
+      'NPL': "24N-44N",
+      'NLD': "44N-64N",
+      'NCL': "24S-EQU",
+      'NZL': "44S-24S",
+      'NIC': "EQU-24N",
+      'NER': "EQU-24N",
+      'NGA': "EQU-24N",
+      'NIU': "24S-EQU",
+      'PRK': "24N-44N",
+      'MKD': "24N-44N",
+      'NOR': "44N-64N",
+      'OMN': "24N-44N",
+      'PAK': "24N-44N",
+      'PLW': "24S-EQU",
+      'PSE': "24N-44N",
+      'PAN': "EQU-24N",
+      'PNG': "24S-EQU",
+      'PRY': "24S-EQU",
+      'PER': "24S-EQU",
+      'PHL': "24S-EQU",
+      'POL': "44N-64N",
+      'PRT': "24N-44N",
+      'PRI': "EQU-24N",
+      'QAT': "24N-44N",
+      'ROU': "44N-64N",
+      'RUS': "44N-64N",
+      'RWA': "24S-EQU",
+      'SHN': "24S-EQU",
+      'KNA': "EQU-24N",
+      'LCA': "EQU-24N",
+      'SPM': "44N-64N",
+      'VCT': "EQU-24N",
+      'WSM': "24S-EQU",
+      'SMR': "24N-44N",
+      'STP': "EQU-24N",
+      'SAU': "24N-44N",
+      'SEN': "EQU-24N",
+      'SRB': "44N-64N",
+      'SYC': "24S-EQU",
+      'SLE': "EQU-24N",
+      'SGP': "EQU-24N",
+      'SXM': "EQU-24N",
+      'SVK': "44N-64N",
+      'SVN': "44N-64N",
+      'SLB': "24S-EQU",
+      'SOM': "EQU-24N",
+      'ZAF': "44S-24S",
+      'KOR': "24N-44N",
+      'SSD': "EQU-24N",
+      'ESP': "24N-44N",
+      'LKA': "24N-44N",
+      'SDN': "EQU-24N",
+      'SUR': "EQU-24N",
+      'SWE': "44N-64N",
+      'CHE': "44N-64N",
+      'SYR': "24N-44N",
+      'TWN': "24N-44N",
+      'TJK': "24N-44N",
+      'TZA': "EQU-24N",
+      'THA': "24N-44N",
+      'TGO': "EQU-24N",
+      'TON': "24S-EQU",
+      'TTO': "EQU-24N",
+      'TUN': "24N-44N",
+      'TUR': "24N-44N",
+      'TKM': "24N-44N",
+      'TCA': "EQU-24N",
+      'TUV': "24S-EQU",
+      'UGA': "EQU-24N",
+      'UKR': "44N-64N",
+      'ARE': "24N-44N",
+      'GBR': "44N-64N",
+      'USA': "24N-44N",
+      'URY': "44S-24S",
+      'UZB': "24N-44N",
+      'VUT': "24S-EQU",
+      'VAT': "24N-44N",
+      'VEN': "EQU-24N",
+      'VNM': "24N-44N",
+      'WLF': "24S-EQU",
+      'YEM': "24N-44N",
+      'ZMB': "24S-EQU",
+      'ZWE': "24S-EQU",
+  }
+
+  df_ZonAnn_Ts_dSST_fm2 = df_github_fm.copy()
+  df_ZonAnn_Ts_dSST_fm2["zones"] = df_ZonAnn_Ts_dSST_fm2["iso_code"].map(iso_code_zones)
+  df_ZonAnn_Ts_dSST_fm2 = df_ZonAnn_Ts_dSST_fm2[df_ZonAnn_Ts_dSST_fm2["year"] >= 1900]
+  df_github_fm["hemisphere"] = df_github_fm["iso_code"].map(iso_code_hemisphere)
+  df_github_fm = df_github_fm[df_github_fm["year"] >= 1900]
+
+  df_merge_fm = pd.merge(df_github_fm, df_ZonAnn_Ts_dSST_hem, on="year", how="left")
+  df_merge_fm.fillna(value={'24N-90N': 0, '24S-24N': 0, '90S-24S': 0}, inplace=True)
+
+  def get_temperature(row):
+      return row[row['hemisphere']] if row['hemisphere'] in row else None
+
+  df_merge_fm['temperature'] = df_merge_fm.apply(get_temperature, axis=1)
+
+  df_merge_fm2 = pd.merge(df_ZonAnn_Ts_dSST_fm2, df_ZonAnn_Ts_dSST_zone, on="year", how="left")
+  df_merge_fm2.fillna(value={'64N-90N': 0, '44N-64N': 0, '24N-44N': 0, 'EQU-24N': 0, '24S-EQU': 0, '44S-24S': 0, '64S-44S': 0, '90S-64S': 0}, inplace=True)
+
+  df_filtered_fm2 = df_merge_fm2[df_merge_fm2["year"] % 10 == 0]
+  min_temp_change = df_filtered_fm2["temperature"].min()
+  max_temp_change = df_filtered_fm2["temperature"].max()
+
+  fig = px.choropleth(df_filtered_fm2,
+                      locations="iso_code",
+                      color="temperature",
+                      color_continuous_scale=px.colors.sequential.Plasma,
+                      labels={'temperature': 'Température'},
+                      title='Changement de température par pays')
+
+  st.title("Visualisation des Changements de Température")
+  st.plotly_chart(fig)
+
+  if st.checkbox('Afficher les données filtrées'):
+      st.write(df_filtered_fm2)
+
 
 ##########################################################
 #MODELISATION
@@ -238,8 +498,6 @@ if page == pages[2] :
 
 if page == pages[3] :
   st.write("### IV. Modélisation")
-
-  st.write("#### Partie Yves")
 
   st.write("#### Prédiction des futures données de température")
   texte_modelisation_fm_1 = """
