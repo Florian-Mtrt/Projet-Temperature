@@ -810,7 +810,16 @@ if page == pages[3] :
   Pour avoir une vue d'ensemble, visualisons les prédictions de température pour les 2 hémisphères avec la tendence globale
   """
   st.write(texte_modelisation_y_2)
-    
+
+  df_hem_y["prediction"] = rfr.predict(df_hem_y.drop(["temperature_change"], axis = "columns")
+  df_y["prediction"] = rfr.predict(X)
+
+  fig_y = go.Figure()
+  fig_y.add_trace(go.Scatter(df_y, x="year", y="temperature_change", mode="lines", name="T°C réelle, monde", marker_color="red"))
+  fig_y.add_trace(go.Scatter(df_y, x="year", y="prediction", mode="lines", name="prédiction, monde", marker_color="red"))                 
+
+  st.plotly_chart(fig_y)
+          
   st.title("Prédiction des futures données de température")
   texte_modelisation_fm_1 = """
   Pour prédire les futures valeurs de données de température nous avons également testé la Régression polynomiale et le modèle ARIMA qui sont tous deux interessants dans un contexte de modélisation de séries temporelles, comme les changements de température terrestre.
