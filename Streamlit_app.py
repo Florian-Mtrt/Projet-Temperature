@@ -911,7 +911,7 @@ if page == pages[3] :
   fig_pred = plt.figure(figsize=(12, 8))
   plt.plot(train_data.index, train_data, label='Données d\'Entraînement')
   plt.plot(test_data.index, test_data, color='blue', label='Données Réelles')
-  plt.plot(future_df_G['Year'], future_df_G['Prédictions'], color='green', linestyle='--', label='Prédictions Futures ARIMA')
+  plt.plot(future_df['Year'], future_df['Prédictions'], color='green', linestyle='--', label='Prédictions Futures ARIMA')
   plt.title('Données historiques avec des prédictions ARIMA pour les 25 prochaines années (1880 à 2050)')
   plt.xlabel('Année')
   plt.ylabel('Température Globale (°C)')
