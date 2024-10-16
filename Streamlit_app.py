@@ -707,9 +707,6 @@ if page == pages[2] :
   df_merge_fm2['temperature'] = df_merge_fm2.apply(get_temperature, axis=1)
 
   df_filtered_fm2 = df_merge_fm2[df_merge_fm2["year"] % 10 == 0]
-  st.write("Colonnes dans df_filtered_fm2 :", df_filtered_fm2.columns)
-  st.write("Colonnes dans df_merge_fm2 :", df_merge_fm2.columns)
-    
   min_temp_change = df_filtered_fm2["temperature"].min()
   max_temp_change = df_filtered_fm2["temperature"].max()
 
