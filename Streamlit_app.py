@@ -94,7 +94,7 @@ if page == pages[1] :
   st.write(df_GLB_NASA_bis.head())
   st.write(df_ZonAnn_Ts_dSST_bis.head())
   st.write(texte_cadre1_2)
-  st.write(df_github.head())
+  st.write(df_github[df_github['country']=='World'].head())
     
   texte_cadre2 = """
   Rappel des ressources à consulter :
