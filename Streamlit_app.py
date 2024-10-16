@@ -811,7 +811,7 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_y_2)
 
-  df_hem_y["prediction"] = rfr.predict(df_hem_y.drop(["temperature_change"], axis = "columns")
+  df_hem_y["prediction"] = rfr.predict(df_hem_y.drop(["temperature_change"], axis = "columns"))
   df_y["prediction"] = rfr.predict(X)
 
   fig_y = go.Figure()
