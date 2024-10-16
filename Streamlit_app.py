@@ -820,7 +820,7 @@ if page == pages[3] :
           go.Scatter(x= df_hem_N["year"], y=df_hem_N["prediction"], mode="markers", name = "predictions", marker_color = "blue"),
           go.Scatter(x= df_hem_S["year"], y=df_hem_S["temperature_change"], mode="lines", name = "T°C réelle, hémisphère sud", marker_color = "red"),
           go.Scatter(x= df_hem_S["year"], y=df_hem_S["prediction"], mode="markers", name = "predictions", marker_color = "red")
-  )
+  ))
   fig_y.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))         
   st.plotly_chart(fig_y, use_container_width=True)
           
