@@ -812,8 +812,7 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_y_2)
 
-  fig_y = go.Figure()
-  fig_y.add_trace(go.Scatter(df_y_pred, x="year", y="temperature_change", mode="lines", name="T°C réelle, monde", marker_color="red"))
+  fig_y = px.Scatter(df_y_pred, x="year", y="temperature_change", mode="lines", name="T°C réelle, monde", marker_color="red")
   fig_y.add_trace(go.Scatter(df_y_pred, x="year", y="prediction", mode="lines", name="prédiction, monde", marker_color="red"))                 
 
   st.plotly_chart(fig_y)
