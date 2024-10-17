@@ -175,7 +175,14 @@ if page == pages[1] :
 if page == pages[2] :
   st.write("### III. DataVisualisation")
     
-  st.write("### 0. Nuage de point des écarts de températures à la période de référence mois par mois")
+  st.write("### 0. Nuage de points des écarts de températures à la période de référence mois par mois")
+    
+  """
+  Nous affichons ci-contre les écarts de températures mondiales, mois par mois. 
+  Les écarts de températures sont mesurés par rapport à la période de référence de 1940-1980. 
+  Ainsi nous observons qu'avant cette période de référence les écarts sont globalement négatifs (il faisait "globalement plus froid"),
+  Et qu'apèrs cette période de référence les écarts de températures sont gloabalement de plus en plus positif (il fait de plus en plus chaud !)
+  """
     
   df_GLB_NASA = df_GLB_NASA.replace('***', float('NaN'))
   df_GLB_NASA[df_GLB_NASA.columns[3:]] = df_GLB_NASA[df_GLB_NASA.columns[3:]].astype('float')
