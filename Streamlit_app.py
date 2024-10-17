@@ -1038,54 +1038,6 @@ if page == pages[3] :
   st.write(f'Statistique du test ADF : {adf_stat}')
   st.write(f'p-value: {p_value}')
 
-  # Vérifier si la série est stationnaire
-  #if p_value > 0.05:
-      #df_ZonAnn_Ts_dSST['Température Diff'] = df_ZonAnn_Ts_dSST['Glob'].diff().dropna()
-
-  #@st.cache_data
-  #def load_arima_params():
-      #p, d, q = 1, 1, 1
-      #return p, d, q
-
-  #p, d, q = load_arima_params()
-
-  #model = ARIMA(df_ZonAnn_Ts_dSST['Glob'], order=(p, d, q))
-  #model_fit = model.fit()
-  #st.write(f'AIC: {model_fit.aic}')
-    
-  #years = df_ZonAnn_Ts_dSST['Year'].values
-
-  # Diviser les données en train et test
-  #train_size = int(0.8 * len(df_ZonAnn_Ts_dSST))
-  #train_data = df_ZonAnn_Ts_dSST['Glob'][:train_size]
-  #test_data = df_ZonAnn_Ts_dSST['Glob'][train_size:]
-  #train_data.index = df_ZonAnn_Ts_dSST['Year'][:train_size]
-  #test_data.index = df_ZonAnn_Ts_dSST['Year'][train_size:]
-
-  # Ajuster le modèle ARIMA sur les données d'entraînement
-  #model = ARIMA(train_data, order=(p, d, q))
-  #model_fit = model.fit()
-
-  # Prédictions sur l'ensemble de test
-  #predictions = model_fit.forecast(steps=len(test_data))
-  #mse_arima = mean_squared_error(test_data, predictions)
-  #st.write(f'Erreur Quadratique Moyenne du modèle ARIMA: {mse_arima}')
-
-  # Prédictions futures
-  #full_data = df_ZonAnn_Ts_dSST['Glob']
-  #full_data.index = df_ZonAnn_Ts_dSST['Year']
-
-  #model_full = ARIMA(full_data, order=(p, d, q))
-  #model_full_fit = model_full.fit()
-  #start_year = 2023
-  #end_year = 2050
-  #years_to_predict = end_year - start_year + 1
-  #last_value = full_data.iloc[-1]
-  #future_predictions = model_full_fit.forecast(steps=years_to_predict)
-  #future_predictions = np.concatenate([[last_value], future_predictions])
-  #future_years = np.arange(start_year, end_year + 1)
-  #future_df = pd.DataFrame({'Year': np.append([2023], future_years), 'Prédictions': future_predictions})
-
   # ---- VISUALISATION Données Historiques et Prédictions Global---- #
   fig_pred = plt.figure(figsize=(12, 8))
   plt.plot(Hist_ZonAnn_Ts_dSST['Year'], Hist_ZonAnn_Ts_dSST['Glob'], label='Données Historiques', color='blue')
@@ -1095,6 +1047,12 @@ if page == pages[3] :
   plt.ylabel('Température Globale (°C)')
   plt.legend()
   st.pyplot(fig_pred)
+
+  texte_modelisation_fm_2 = """
+  Nous avons mis en œuvre des techniques d'optimisation, notamment Grid Search, qui nous ont permis d'explorer différentes combinaisons de paramètres (p, d, q) pour notre modèle ARIMA. Cette approche a non seulement facilité
+  l'évaluation de la performance des modèles, mais a également conduit à l'identification des meilleures prévisions pour les températures futures.
+  """
+  st.write(texte_modelisation_fm_2)
 
   # ---- VISUALISATION Données Historiques et Prédictions Nord, Sud et Global---- #
   df_latitude_zones = ["Glob", "NHem", "SHem"]
@@ -1125,6 +1083,11 @@ if page == pages[3] :
     )
   st.plotly_chart(fig)
 
+  texte_modelisation_fm_3 = """
+  Graphique représentant les prédictions des températures pour l’hémisphère nord, sud et le global
+  """
+  st.write(texte_modelisation_fm_3)
+
   # ---- VISUALISATION DE LA HEATMAP (Nord, Équateur, Sud) ---- #
   fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(10, 12))
 
@@ -1152,3 +1115,8 @@ if page == pages[3] :
 
   plt.tight_layout()
   st.pyplot(fig)
+
+  texte_modelisation_fm_4 = """
+  Heatmap des données historique avec prédictions des températures détaillés par hémisphères
+  """
+  st.write(texte_modelisation_fm_4)
