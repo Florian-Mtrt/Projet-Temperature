@@ -1125,57 +1125,23 @@ if page == pages[3] :
   st.plotly_chart(fig)
 
   # ---- VISUALISATION DE LA HEATMAP (Nord, Equateur, Sud) ---- #
+    
+  merged_df = pd.merge(Hist_ZonAnn_Ts_dSST, Pred_ZonAnn_Ts_dSST, on='Year', suffixes=('_Hist', '_Pred'))
 
-  st.title("Heatmap des Températures Historiques et Prédictions Futures")
+  st.write("DataFrame fusionné :", merged_df)
 
-  historique_df_nord = Hist_ZonAnn_Ts_dSST[['Year', '24N-90N']].copy()
-  historique_df_nord['Hémisphère'] = 'Nord'
-  historique_df_nord = historique_df_nord.rename(columns={'24N-90N': 'Température'})
+  heatmap_data = merged_df[['Year', '24N-90N_Hist', '24N-90N_Pred', '24S-24N_Hist', '24S-24N_Pred', '90S-24S_Hist', '90S-24S_Pred']]
+  heatmap_data = heatmap_data.set_index('Year')
 
-  historique_df_equ = Hist_ZonAnn_Ts_dSST[['Year', '24S-24N']].copy()
-  historique_df_equ['Hémisphère'] = 'Équateur'
-  historique_df_equ = historique_df_equ.rename(columns={'24S-24N': 'Température'})
+  st.write("DataFrame pour la heatmap :", heatmap_data)
 
-  historique_df_sud = Hist_ZonAnn_Ts_dSST[['Year', '90S-24S']].copy()
-  historique_df_sud['Hémisphère'] = 'Sud'
-  historique_df_sud = historique_df_sud.rename(columns={'90S-24S': 'Température'})
+  if not heatmap_data.empty:
+    plt.figure(figsize=(10, 6))
+    sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
+    plt.title('Heatmap des données historiques et prédites')
+    plt.xlabel('Variables')
+    plt.ylabel('Année')
 
-  future_df_nord = Pred_ZonAnn_Ts_dSST[['Year', '24N-90N']].copy()
-  future_df_nord['Hémisphère'] = 'Nord'
-  future_df_nord = future_df_nord.rename(columns={'24N-90N': 'Température'})
-
-  future_df_equ = Pred_ZonAnn_Ts_dSST[['Year', '24S-24N']].copy()
-  future_df_equ['Hémisphère'] = 'Équateur'
-  future_df_equ = future_df_equ.rename(columns={'24S-24N': 'Température'})
-
-  future_df_sud = Pred_ZonAnn_Ts_dSST[['Year', '90S-24S']].copy()
-  future_df_sud['Hémisphère'] = 'Sud'
-  future_df_sud = future_df_sud.rename(columns={'90S-24S': 'Température'})
-
-  historique_data = pd.concat([
-    historique_df_nord[['Year', 'Température', 'Hémisphère']],
-    historique_df_equ[['Year', 'Température', 'Hémisphère']],
-    historique_df_sud[['Year', 'Température', 'Hémisphère']]
-    ], axis=0)
-
-  future_data = pd.concat([
-    future_df_nord[['Year', 'Température', 'Hémisphère']],
-    future_df_equ[['Year', 'Température', 'Hémisphère']],
-    future_df_sud[['Year', 'Température', 'Hémisphère']]
-    ], axis=0)
-
-  combined_data = pd.concat([historique_data, future_data], axis=0)
-
-  combined_data = combined_data.groupby(['Hémisphère', 'Year'], as_index=False).mean()
-
-  heatmap_pivot = combined_data.pivot(index='Hémisphère', columns='Year', values='Température')
-
-  heatmap_pivot = heatmap_pivot.reindex(['Nord', 'Équateur', 'Sud'])
-
-  # ---- VISUALISATION DE LA HEATMAP ----
-  plt.figure(figsize=(12, 6))
-  sns.heatmap(heatmap_pivot, cmap='RdYlBu_r', vmin=-2.60, vmax=4, annot=False, cbar=True)
-  plt.title('Heatmap des Températures Historiques et Prédictions Futures (Nord, Équateur, Sud)')
-  plt.xlabel('Année')
-  plt.ylabel('Hémisphère')
-  st.pyplot(plt)
+    st.pyplot(plt)
+  else:
+    st.error("Le DataFrame pour la heatmap est vide.")
