@@ -873,14 +873,12 @@ if page == pages[2] :
     color_continuous_scale='RdBu_r',
     labels={
                      "Year": "Année",
-                     "value": "Ecart de température",
+                     "value": "Température",
                      "population": "Population",
                      "co2": "CO2",
-                     "cumulative_co2": "Stock de CO2",
-                     "total_ghg": "Gaz à effet de serre"
+                     "cumulative_co2": "Stock CO2",
+                     "total_ghg": "GHG"
                  },
-    width=1500,
-    height=1500,
     color = "value"
     )
   fig9.update_traces(diagonal_visible=False)
