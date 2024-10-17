@@ -1017,6 +1017,7 @@ if page == pages[3] :
   st.plotly_chart(fig_poly)
 
   Pred_ZonAnn_Ts_dSST = pd.read_csv('Pred_ZonAnn_Ts_dSST.csv')
+  Hist_ZonAnn_Ts_dSST = pd.read_csv('Hist_ZonAnn_Ts_dSST.csv')
   st.dataframe(Pred_ZonAnn_Ts_dSST)
     
   st.write("### 2. Modélisation deu modèle ARIMA")
@@ -1082,10 +1083,9 @@ if page == pages[3] :
 
   # ---- VISUALISATION ---- #
   fig_pred = plt.figure(figsize=(12, 8))
-  plt.plot(train_data.index, train_data, label='Données d\'Entraînement')
-  plt.plot(test_data.index, test_data, color='blue', label='Données Réelles')
-  plt.plot(future_df['Year'], future_df['Prédictions'], color='green', linestyle='--', label='Prédictions Futures ARIMA')
-  plt.title('Données historiques avec des prédictions ARIMA pour les 25 prochaines années (1880 à 2050)')
+  plt.plot(Hist_ZonAnn_Ts_dSST['Year'], Hist_ZonAnn_Ts_dSST['Glob'], label='Données Historiques', color='orange')
+  plt.plot(Pred_ZonAnn_Ts_dSST['Year'], Pred_ZonAnn_Ts_dSST['Glob'], color='green', linestyle='--', label='Prédictions ARIMA')
+  plt.title('Données Historiques et Prédictions ARIMA (1880 à 2050)')
   plt.xlabel('Année')
   plt.ylabel('Température Globale (°C)')
   plt.legend()
