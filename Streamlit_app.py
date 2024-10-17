@@ -838,7 +838,10 @@ if page == pages[2] :
   st.write("### 7. Visualisation des écarts des températures au fil des années")
   st.plotly_chart(fig)
 
-  st.write("### 8. Matrice de corrélation des écarts de températures, années, populations, émissions CO2, stock de CO2, et GHG (GreenHouse Gas ou Gaz à Effet de Serre)")
+  st.write("### 8. Matrice de corrélation entre les variables : écarts de températures, années, populations, émissions CO2, stock de CO2, et GHG (GreenHouse Gas ou Gaz à Effet de Serre)")
+    
+  df_year = pd.melt(df_GLB_NASA, id_vars=['Year'], value_vars=['J-D'])
+  df_year = df_year.drop('variable', axis=1)
     
   df_github_world = df_github[df_github['country'] == 'World']
   df_github_world_1880 = df_github_world[df_github_world['year']>=1880]
