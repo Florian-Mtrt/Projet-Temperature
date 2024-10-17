@@ -1142,6 +1142,9 @@ if page == pages[3] :
   heatmap_data_melted_2 = heatmap_data_2.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
 
   pivot_table_2 = heatmap_data_melted_2.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
+  pivot_table_2 = pivot_table_2.reindex(['Nord 64N-90N', 'Nord 44N-64N', 'Nord 24N-44N',
+                                       'Equateur-24N', 'Equateur-24S',
+                                       'Sud 44S-24S', 'Sud 64S-44S', 'Sud 90S-64S'])
   sns.heatmap(pivot_table_2, cmap='RdYlBu_r', vmin=-2.60, vmax=4, annot=False, fmt=".2f", linewidths=.5, ax=axes[1])
   axes[1].set_title('Heatmap des Températures Historiques et des Prédictions Futures pour les Hémisphères')
   axes[1].set_xlabel('Année')
