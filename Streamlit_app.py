@@ -230,6 +230,7 @@ if page == pages[2] :
   df_GLB_NASA = df_GLB_NASA.replace('***', float('NaN'))
   df_GLB_NASA[df_GLB_NASA.columns[3:]] = df_GLB_NASA[df_GLB_NASA.columns[3:]].astype('float')
   df_GLB_NASA['Year']=df_GLB_NASA.index
+  st.dataframe(df_GLB_NASA.tail())
 
   df_season = pd.melt(df_GLB_NASA, id_vars=['Year'], value_vars=['J-D','DJF','MAM','JJA','SON'])
   df_season = df_season.replace(['J-D','DJF','MAM','JJA','SON'],['Year','Winter','Spring','Summer','Autumn'])
