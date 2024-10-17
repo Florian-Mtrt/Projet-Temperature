@@ -1126,22 +1126,12 @@ if page == pages[3] :
 
   # ---- VISUALISATION DE LA HEATMAP (Nord, Equateur, Sud) ---- #
     
-  merged_df = pd.merge(Hist_ZonAnn_Ts_dSST, Pred_ZonAnn_Ts_dSST, on='Year', suffixes=('_Hist', '_Pred'))
+  heatmap_data = Resultats_ZonAnn_Ts_dSST[['Year', 'NHem', '24N-90N', '24S-24N', '90S-24S']]
+  heatmap_data.set_index('Year', inplace=True)
 
-  st.write("DataFrame fusionné :", merged_df)
-
-  heatmap_data = merged_df[['Year', '24N-90N_Hist', '24N-90N_Pred', '24S-24N_Hist', '24S-24N_Pred', '90S-24S_Hist', '90S-24S_Pred']]
-  heatmap_data = heatmap_data.set_index('Year')
-
-  st.write("DataFrame pour la heatmap :", heatmap_data)
-
-  if not heatmap_data.empty:
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
-    plt.title('Heatmap des données historiques et prédites')
-    plt.xlabel('Variables')
-    plt.ylabel('Année')
-
-    st.pyplot(plt)
-  else:
-    st.error("Le DataFrame pour la heatmap est vide.")
+  plt.figure(figsize=(10, 6))
+  sns.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt=".2f", linewidths=.5)
+  plt.title('Heatmap des anomalies de SST par zone')
+  plt.xlabel('Zones')
+  plt.ylabel('Année')
+  st.pyplot(plt)
