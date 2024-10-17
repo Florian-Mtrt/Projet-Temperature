@@ -271,7 +271,7 @@ if page == pages[2] :
 
   fig5 = px.scatter(df_season, x="Year", y="Value", color="Season",
                     trendline="ols", # ligne de lissage de nuage de points des moindres carrés
-                    trendline_color_override="black",
+                    trendline_color_override="grey",
                     facet_col='Season',
                     facet_col_wrap=3,
                     labels={
@@ -281,14 +281,14 @@ if page == pages[2] :
                      },
                     #title="Nuage de points avec régression des moindres carrés",
                     width=800, height=400)
-  fig5.update_traces(marker_size=3)
+  fig5.update_traces(marker_size=4)
   st.plotly_chart(fig5)
 
   st.write("### 6. Scatterplot des écarts de température à la période de référence par saison, regression localement pondérée")
 
   fig6 = px.scatter(df_season, x="Year", y="Value", color="Season",
                  trendline='lowess', # ligne de lissage de nuage de points localement pondérée
-                 trendline_color_override="black",
+                 trendline_color_override="grey",
                  facet_col='Season',
                  facet_col_wrap=3,
                  labels={
@@ -298,7 +298,7 @@ if page == pages[2] :
                  },
                  #title="Evolution des écarts de températures avec lissage de nuage de points localement pondérée",
                  width=800, height=400)
-  fig6.update_traces(marker_size=3)
+  fig6.update_traces(marker_size=4)
   st.plotly_chart(fig6)
     
   ##########################################################
@@ -794,7 +794,7 @@ if page == pages[2] :
                       range_color=range_color,
                       projection="natural earth")
 
-  st.write("### 6. Visualisation de l'écart des Températures au fil des ans")
+  st.write("### 7. Visualisation des écarts des températures au fil des années")
   st.plotly_chart(fig)
 
 ##########################################################
