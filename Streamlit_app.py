@@ -1135,7 +1135,7 @@ if page == pages[3] :
     '90S-24S': 'Sud'
     })
 
-  heatmap_data_melted['Zone'] = pd.Categorical(heatmap_data_melted['Zone'], categories=['Nord', 'Equateur', 'Sud'], ordered=True)
+  #heatmap_data_melted['Zone'] = pd.Categorical(heatmap_data_melted['Zone'], categories=['Nord', 'Equateur', 'Sud'], ordered=True)
     
   plt.figure(figsize=(10, 6))
   pivot_table = heatmap_data_melted.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
