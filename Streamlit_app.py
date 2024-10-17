@@ -220,16 +220,16 @@ if page == pages[2] :
   Nous commençons par examiner les tendances mondiales, en montrant l'augmentation des concentrations des différents types de GES (Gaz à Effet de Serres) dans l'atmosphère
   et principalement du dioxyde de carbone (CO₂), qui est l'un des principaux moteurs du réchauffement climatique.
   """
-  #fig_fd_1 = plt.subplots(figsize=(6, 6))
-  #sns.lineplot(x='year', y='temperature_change_from_ghg', data=df_github[df_github['country']=='World'], label='Gaz à effet de serre (GHG)')
-  #sns.lineplot(x='year', y='temperature_change_from_ch4', data=df_github[df_github['country']=='World'], label='Méthane (CH4)')
-  #sns.lineplot(x='year', y='temperature_change_from_co2', data=df_github[df_github['country']=='World'], label='Dioxyde de carbone (CO2)')
-  #sns.lineplot(x='year', y='temperature_change_from_n2o', data=df_github[df_github['country']=='World'], label='Protoxyde d\'azote (N2O)')
-  #plt.title('Changement de la température en fonction de différentes causes')
-  #plt.xlabel('Années')
-  #plt.ylabel('Changement de la température moyenne globale (en °C)')
+  fig_fd_1, ax = plt.subplots()
+  sns.lineplot(x='year', y='temperature_change_from_ghg', data=df_github[df_github['country']=='World'], ax=ax, label='Gaz à effet de serre (GHG)')
+  sns.lineplot(x='year', y='temperature_change_from_ch4', data=df_github[df_github['country']=='World'], ax=ax, label='Méthane (CH4)')
+  sns.lineplot(x='year', y='temperature_change_from_co2', data=df_github[df_github['country']=='World'], ax=ax, label='Dioxyde de carbone (CO2)')
+  sns.lineplot(x='year', y='temperature_change_from_n2o', data=df_github[df_github['country']=='World'], ax=ax, label='Protoxyde d\'azote (N2O)')
+  plt.title('Changement de la température en fonction de différentes causes')
+  plt.xlabel('Années')
+  plt.ylabel('Changement de la température moyenne globale (en °C)')
 
-  #st.pyplot(fig_fd_1.get_figure())
+  st.pyplot(fig_fd_1.get_figure())
   """
   L'impact le plus important est causé par le Dioxyde de carbone, avant le Méthane et le Protoxyde d'azote.
   """
