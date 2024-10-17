@@ -838,6 +838,27 @@ if page == pages[2] :
   st.write("### 7. Visualisation des écarts des températures au fil des années")
   st.plotly_chart(fig)
 
+  st.write("### 8. Matrice de corrélation des écarts de températures, années, populations, émissions CO2, stock de CO2, et GHG (GreenHouse Gas ou Gaz à Effet de Serre)")
+    
+  df_github_world = df_github[df_github['country'] == 'World']
+  df_github_world_1880 = df_github_world[df_github_world['year']>=1880]
+  df_github_world_1880_co2 = df_github_world_1880.filter(items = ['country','year','population','co2', 'cumulative_co2', 'total_ghg'])
+  df_merge = pd.merge(df_year, df_github_world_1880_co2, left_on = ['Year'], right_on = ['year'])
+  df_merge = df_merge.drop('country',axis=1)
+  df_merge = df_merge.drop('year',axis=1)
+  fig8 = px.imshow(df_merge.corr(),
+                text_auto=True,
+                width=800, height=800,
+                range_color=[0,1],
+                labels={
+                     "Year": "Année",
+                     "value": "Ecart de température",
+                     "population": "Population",
+                     "co2": "Emission de CO2",
+                     "cumulative_co2": "Stock cumulatif de CO2",
+                     "total_ghg": "Stock cumulatif de CO2"
+                 })
+  st.plotly_chart(fig8)
 ##########################################################
 #MODELISATION
 ##########################################################
