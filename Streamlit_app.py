@@ -1023,6 +1023,7 @@ if page == pages[3] :
 
   Pred_ZonAnn_Ts_dSST = pd.read_csv('Pred_ZonAnn_Ts_dSST.csv')
   Hist_ZonAnn_Ts_dSST = pd.read_csv('Hist_ZonAnn_Ts_dSST.csv')
+  Resultats_ZonAnn_Ts_dSST = pd.read_csv('Resultats_ZonAnn_Ts_dSST.csv')
     
   st.write("### 2. Modélisation deu modèle ARIMA")
     
