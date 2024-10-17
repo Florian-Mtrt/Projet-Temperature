@@ -1140,20 +1140,20 @@ if page == pages[3] :
   plt.figure(figsize=(10, 6))
   pivot_table = heatmap_data_melted.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
   sns.heatmap(pivot_table, cmap='RdYlBu_r', annot=False, fmt=".2f", linewidths=.5)
-  plt.title('Heatmap des anomalies de SST par zone')
+  plt.title('Heatmap des Températures Historiques et des Prédictions Futures (Nord, Équateur, Sud)')
   plt.xlabel('Année')
-  plt.ylabel('Zones')
+  plt.ylabel('Hémisphère')
   st.pyplot(plt)
 
   # ---- VISUALISATION DE LA HEATMAP des Températures Historiques et des Prédictions Futures pour les Hémisphères ---- #
     
-  heatmap_data = Resultats_ZonAnn_Ts_dSST[['Year', '64N-90N', '44N-64N', '24N-44N', 'EQU-24N', '24S-EQU', '44S-24S', '64S-44S', '90S-64S']]
-  heatmap_data_melted = heatmap_data.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
+  heatmap_data_2 = Resultats_ZonAnn_Ts_dSST[['Year', '64N-90N', '44N-64N', '24N-44N', 'EQU-24N', '24S-EQU', '44S-24S', '64S-44S', '90S-64S']]
+  heatmap_data_melted_2 = heatmap_data_2.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
     
   plt.figure(figsize=(10, 6))
-  pivot_table = heatmap_data_melted.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
-  sns.heatmap(pivot_table, cmap='RdYlBu_r', annot=False, fmt=".2f", linewidths=.5)
-  plt.title('Heatmap des anomalies de SST par zone')
+  pivot_table_2 = heatmap_data_melted_2.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
+  sns.heatmap(pivot_table_2, cmap='RdYlBu_r', annot=False, fmt=".2f", linewidths=.5)
+  plt.title('Heatmap des Températures Historiques et des Prédictions Futures pour les Hémisphères')
   plt.xlabel('Année')
-  plt.ylabel('Zones')
+  plt.ylabel('Hémisphère')
   st.pyplot(plt)
