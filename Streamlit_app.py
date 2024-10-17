@@ -1083,7 +1083,7 @@ if page == pages[3] :
 
   # ---- VISUALISATION ---- #
   fig_pred = plt.figure(figsize=(12, 8))
-  plt.plot(Hist_ZonAnn_Ts_dSST['Year'], Hist_ZonAnn_Ts_dSST['Glob'], label='Données Historiques', color='orange')
+  plt.plot(Hist_ZonAnn_Ts_dSST['Year'], Hist_ZonAnn_Ts_dSST['Glob'], label='Données Historiques', color='blue')
   plt.plot(Pred_ZonAnn_Ts_dSST['Year'], Pred_ZonAnn_Ts_dSST['Glob'], color='green', linestyle='--', label='Prédictions ARIMA')
   plt.title('Données Historiques et Prédictions ARIMA (1880 à 2050)')
   plt.xlabel('Année')
