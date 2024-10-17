@@ -1144,7 +1144,7 @@ if page == pages[3] :
   heatmap_data_melted_2 = heatmap_data_2.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
     
   plt.figure(figsize=(10, 6))
-  pivot_table_2 = heatmap_data_melted_2.pivot_table_2(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
+  pivot_table_2 = heatmap_data_melted_2.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
   sns.heatmap(pivot_table_2, cmap='RdYlBu_r', annot=False, fmt=".2f", linewidths=.5)
   plt.title('Heatmap des Températures Historiques et des Prédictions Futures pour les Hémisphères')
   plt.xlabel('Année')
