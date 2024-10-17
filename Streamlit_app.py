@@ -1016,8 +1016,11 @@ if page == pages[3] :
   plt.grid()
   st.plotly_chart(fig_poly)
 
+  Pred_ZonAnn_Ts_dSST = pd.read_csv('Pred_ZonAnn_Ts_dSST')
+  st.dataframe(Pred_ZonAnn_Ts_dSST)
+    
   st.write("### 2. Modélisation deu modèle ARIMA")
-
+  
 
   df_ZonAnn_Ts_dSST = load_data_zonann()
 
@@ -1035,7 +1038,7 @@ if page == pages[3] :
 
   @st.cache_data
   def load_arima_params():
-      p, d, q = 10, 3, 1
+      p, d, q = 1, 1, 1
       return p, d, q
 
   p, d, q = load_arima_params()
