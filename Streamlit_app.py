@@ -1127,7 +1127,7 @@ if page == pages[3] :
 
   # ---- VISUALISATION DE LA HEATMAP (Nord, Equateur, Sud) ---- #
     
-  heatmap_data = Resultats_ZonAnn_Ts_dSST[['Year', 'NHem', '24N-90N', '24S-24N', '90S-24S']]
+  heatmap_data = Resultats_ZonAnn_Ts_dSST[['Year', '24N-90N', '24S-24N', '90S-24S']]
   heatmap_data_melted = heatmap_data.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
 
   plt.figure(figsize=(10, 6))
