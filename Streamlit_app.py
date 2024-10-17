@@ -29,7 +29,7 @@ def load_data_owid():
 
 @st.cache
 def load_data_nasa():
-    return pd.read_csv('GLB.Ts+dSST.csv', header=1, index_col=1)
+    return pd.read_csv('GLB.Ts+dSST.csv', header=1, index_col=0)
 
 @st.cache
 def load_data_nasa_bis():
