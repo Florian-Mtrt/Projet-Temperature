@@ -852,7 +852,7 @@ if page == pages[2] :
   fig8 = px.imshow(df_merge.corr(),
                 text_auto=True,
                 width=800, height=800,
-                color_discrete_sequence= px.colors.sequential.Plasma_r,   
+                color_continuous_scale='RdBu_r',   
                 range_color=[0,1],
                 labels={
                      "Year": "Année",
