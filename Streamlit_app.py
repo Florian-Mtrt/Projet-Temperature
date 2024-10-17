@@ -1021,8 +1021,10 @@ if page == pages[3] :
   st.dataframe(Pred_ZonAnn_Ts_dSST)
     
   st.write("### 2. Modélisation deu modèle ARIMA")
-
-  st.write(Hist_ZonAnn_Ts_dSST.columns)
+    
+  st.write("Colonnes du DataFrame historique :", Hist_ZonAnn_Ts_dSST.columns)
+  Hist_ZonAnn_Ts_dSST.columns = Hist_ZonAnn_Ts_dSST.columns.str.strip()
+  Pred_ZonAnn_Ts_dSST.columns = Pred_ZonAnn_Ts_dSST.columns.str.strip()
   
 
   #df_ZonAnn_Ts_dSST = load_data_zonann()
