@@ -230,6 +230,7 @@ if page == pages[2] :
   plt.ylabel('Changement de la température moyenne globale (en °C)')
 
   st.pyplot(fig_fd_1.get_figure())
+  st.write()
   """
   L'impact le plus important est causé par le Dioxyde de carbone, avant le Méthane et le Protoxyde d'azote.
   """
@@ -239,6 +240,7 @@ if page == pages[2] :
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
 
   st.pyplot(fig_fd_2.get_figure())
+  st.write()
   """
   Grâce aux données GitHub concernant les émissions de CO2 par année, nous pouvons constater une augmentation de ces émissions dans le monde au fil du temps.
   Nous pouvons même remarquer une forte augmentation après 1950.
@@ -256,6 +258,7 @@ if page == pages[2] :
   plt.legend()
 
   st.pyplot(fig_fd_3.get_figure())
+  st.write()
   """
   Nous affichons ici les émissions de CO2 par année et par continent.
   Nous pouvons remarquer qu'à partir des années 1990 il y a un croisement entre l'Europe, l'Amérique et l'Asie.
