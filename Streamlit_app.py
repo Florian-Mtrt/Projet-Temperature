@@ -1025,18 +1025,18 @@ if page == pages[3] :
   Hist_ZonAnn_Ts_dSST = pd.read_csv('Hist_ZonAnn_Ts_dSST.csv')
   Resultats_ZonAnn_Ts_dSST = pd.read_csv('Resultats_ZonAnn_Ts_dSST.csv')
     
+  
   st.write("### 2. Modélisation deu modèle ARIMA")
     
-
-  #df_ZonAnn_Ts_dSST = load_data_zonann()
+  df_ZonAnn_Ts_dSST = load_data_zonann()
 
   
   # Test de stationnarité
-  #result = adfuller(df_ZonAnn_Ts_dSST['Glob'])
-  #adf_stat = result[0]
-  #p_value = result[1]
-  #st.write(f'Statistique du test ADF : {adf_stat}')
-  #st.write(f'p-value: {p_value}')
+  result = adfuller(df_ZonAnn_Ts_dSST['Glob'])
+  adf_stat = result[0]
+  p_value = result[1]
+  st.write(f'Statistique du test ADF : {adf_stat}')
+  st.write(f'p-value: {p_value}')
 
   # Vérifier si la série est stationnaire
   #if p_value > 0.05:
