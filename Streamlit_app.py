@@ -869,7 +869,8 @@ if page == pages[2] :
   fig9 = px.scatter_matrix(
     df_merge,
     dimensions=['Year','value', 'population','co2','cumulative_co2','total_ghg'],
-    title="Matrice des nuages de points entres les variables pré-séléctionnées",
+    #title="Matrice des nuages de points entres les variables pré-séléctionnées",
+    color_continuous_scale='RdBu_r',
     labels={
                      "Year": "Année",
                      "value": "Ecart de température",
@@ -879,7 +880,7 @@ if page == pages[2] :
                      "total_ghg": "Gaz à effet de serre"
                  },
     width=1500,
-    height=800,
+    height=1500,
     color = "value"
     )
   fig9.update_traces(diagonal_visible=False)
