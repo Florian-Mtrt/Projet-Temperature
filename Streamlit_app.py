@@ -1094,3 +1094,35 @@ if page == pages[3] :
   plt.ylabel('Température Globale (°C)')
   plt.legend()
   st.pyplot(fig_pred)
+
+
+  df_latitude_zones = ["Glob", "NHem", "SHem"]
+  fig = go.Figure()
+
+  # Traçage des données historiques
+  for column in df_latitude_zones:
+    fig.add_trace(go.Scatter(
+        x=Hist_ZonAnn_Ts_dSST["Year"], 
+        y=Hist_ZonAnn_Ts_dSST[column], 
+        mode="lines+markers", 
+        name=f"Historique {column}"
+        ))
+
+  # Traçage des prédictions futures
+  for column in df_latitude_zones:
+    fig.add_trace(go.Scatter(
+        x=Pred_ZonAnn_Ts_dSST["Year"], 
+        y=Pred_ZonAnn_Ts_dSST[column], 
+        mode="lines+markers", 
+        name=f"Prédictions {column}", 
+        line=dict(dash="dash")
+        ))
+
+  # Mise à jour de la mise en page
+  fig.update_layout(
+    title="Données Historiques et Prédictions (1880-2050)",
+    xaxis_title="Année",
+    yaxis_title="Température Globale (°C)",
+    hovermode="closest"
+    )
+  st.plotly_chart(fig)
