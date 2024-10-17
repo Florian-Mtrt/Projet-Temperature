@@ -295,6 +295,7 @@ if page == pages[2] :
                  },
                  #title="Evolution des écarts de températures avec lissage de nuage de points localement pondérée",
                  width=800, height=400)
+  fig5.update_traces(marker_size=10)
   st.plotly_chart(fig5)
     
   ##########################################################
