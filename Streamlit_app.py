@@ -204,7 +204,7 @@ if page == pages[2] :
   #st.dataframe(df_month_dropna.head())
     
   fig0 = px.scatter(df_month_dropna, x="Year", y="Value",size = "Absolute", color = "Season",
-                    hover_name="Date",
+                    hover_name="Date", color_discrete_sequence=px.colors.qualitative.Dark24,
                     #title='nuage de point des écarts de température',
                     labels={
                      "Year": "Année",
