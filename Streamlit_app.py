@@ -230,17 +230,17 @@ if page == pages[2] :
   df_GLB_NASA = df_GLB_NASA.replace('***', float('NaN'))
   df_GLB_NASA[df_GLB_NASA.columns[3:]] = df_GLB_NASA[df_GLB_NASA.columns[3:]].astype('float')
   df_GLB_NASA['Year']=df_GLB_NASA.index
-  st.dataframe(df_GLB_NASA.tail())
+  #st.dataframe(df_GLB_NASA.tail())
 
   df_season = pd.melt(df_GLB_NASA, id_vars=['Year'], value_vars=['J-D','DJF','MAM','JJA','SON'])
   df_season = df_season.replace(['J-D','DJF','MAM','JJA','SON'],['Year','Winter','Spring','Summer','Autumn'])
   df_season = df_season.rename(columns={'variable': 'Season', 'value': 'Value'})
   df_season['sub_Period'] = df_season['Year'].apply(lambda x: '1880 à 1940' if x < 1940 else ('1980 à 2000' if 1980 <= x < 2000 else ('2000 à 2024' if 2000 <= x <= 2024 else '1940 à 1980')))
-  st.dataframe(df_season.tail())
+  #st.dataframe(df_season.tail())
 
   fig1 = px.box(df_season, x="Season", y="Value", color="Season", facet_col = "sub_Period",
             color_discrete_sequence=px.colors.qualitative.Dark24,
-             title = "boxplot par saison par période des écarts de températures",
+             #title = "boxplot par saison par période des écarts de températures",
              labels={
                      "Year": "Année",
                      "Value": "Ecart de température",
@@ -250,7 +250,7 @@ if page == pages[2] :
 
   st.plotly_chart(fig1)
 
-  st.write("### 3. Swarmplot des écarts de température à la période de référence par saison et par période")
+  st.write("### 3. Swarmplot des écarts de température à la période de référence par saison et par année")
 
 
   sns.color_palette(palette = "OrRd", as_cmap=True)
@@ -278,8 +278,8 @@ if page == pages[2] :
                      "Value": "Ecart de température",
                      "Season": "Season",
                      },
-                    title="Nuage de points avec régression des moindres carrés",
-                    width=1000, height=400)
+                    #title="Nuage de points avec régression des moindres carrés",
+                    width=800, height=400)
   st.plotly_chart(fig4)
 
   st.write("### 6. Scatterplot des écarts de température à la période de référence par saison, regression localement pondérée")
@@ -293,8 +293,8 @@ if page == pages[2] :
                      "Value": "Ecart de température",
                      "Season": "Season",
                  },
-                 title="Evolution des écarts de températures avec lissage de nuage de points localement pondérée",
-                 width=1000, height=400)
+                 #title="Evolution des écarts de températures avec lissage de nuage de points localement pondérée",
+                 width=800, height=400)
   st.plotly_chart(fig5)
     
   ##########################################################
