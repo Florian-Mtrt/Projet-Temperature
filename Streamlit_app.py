@@ -180,8 +180,8 @@ if page == pages[2] :
   """
   Nous affichons ci-contre les écarts de températures mondiales, mois par mois. 
   Les écarts de températures sont mesurés par rapport à la période de référence de 1940-1980. 
-  Ainsi nous observons qu'avant cette période de référence les écarts sont globalement négatifs (il faisait "globalement plus froid"),
-  Et qu'apèrs cette période de référence les écarts de températures sont gloabalement de plus en plus positif (il fait de plus en plus chaud !)
+  Ainsi nous observons qu'avant cette période de référence les écarts sont globalement négatifs (il faisait "globalement plus froid").
+  Et qu'après cette période de référence les écarts de températures sont gloabalement de plus en plus positif (il fait de plus en plus chaud !).
   """
     
   df_GLB_NASA = df_GLB_NASA.replace('***', float('NaN'))
@@ -265,7 +265,14 @@ if page == pages[2] :
   """
   
   st.write("### 2. Boite à moustache des écarts de température à la période de référence par saison et par période")
-
+    
+  """
+  Le boxplot ci-dessous permet de segmenter les écarts dans le temps et par saison.
+  Boxplot globalement inférieur à 0°C entre 1880 et 1940 : période globalement plus froide de -0.5°C à 0°C versus la période de référence ;
+  La médiane du Boxplot globalement positionné à 0°C sur la période de 1940 et 1980, c’est la période de référence pour les mesures d’écarts de températures ;
+  Boxplot globalement supérieure à 0°C entre 1980 et aujourd’hui : entre 0°C et +0.5°C sur la période 1989 à 2000 et supérieur à +0.5°C jusqu’à des valeurs extrêmes supérieurs à +1°C de 2000 à maintenant.
+  """
+    
   df_season = pd.melt(df_GLB_NASA, id_vars=['Year'], value_vars=['J-D','DJF','MAM','JJA','SON'])
   df_season = df_season.replace(['J-D','DJF','MAM','JJA','SON'],['Year','Winter','Spring','Summer','Autumn'])
   df_season = df_season.rename(columns={'variable': 'Season', 'value': 'Value'})
