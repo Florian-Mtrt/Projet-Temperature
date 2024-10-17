@@ -1133,6 +1133,7 @@ if page == pages[3] :
     '24N-90N': 'Nord',
     '24S-24N': 'Equateur',
     '90S-24S': 'Sud'
+    })
 
   plt.figure(figsize=(10, 6))
   pivot_table = heatmap_data_melted.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
