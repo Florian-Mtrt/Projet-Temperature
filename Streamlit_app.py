@@ -1129,6 +1129,10 @@ if page == pages[3] :
     
   heatmap_data = Resultats_ZonAnn_Ts_dSST[['Year', '24N-90N', '24S-24N', '90S-24S']]
   heatmap_data_melted = heatmap_data.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
+  heatmap_data_melted['Zone'] = heatmap_data_melted['Zone'].replace({
+    '24N-90N': 'Nord',
+    '24S-24N': 'Equateur',
+    '90S-24S': 'Sud'
 
   plt.figure(figsize=(10, 6))
   pivot_table = heatmap_data_melted.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
