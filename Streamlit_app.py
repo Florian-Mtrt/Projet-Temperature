@@ -982,8 +982,8 @@ if page == pages[3] :
           
   st.title("Prédiction des futures données de température")
   texte_modelisation_fm_1 = """
-  Pour prédire les futures valeurs de données de température nous avons également testé la Régression polynomiale et le modèle ARIMA qui sont tous deux interessants dans un contexte de modélisation de séries temporelles, comme les changements de température terrestre.
-  Pour le choix du modèle, et suite au test de ces plusieurs algorithmes, le modèle ARIMA a été retenu pour prédire les températures jusqu'en 2050 car il obtient des résultats plus réel.
+  Pour prédire les futures valeurs de données de température nous avons également testé la Régression polynomiale et le modèle ARIMA qui sont tous deux intéressants dans un contexte de modélisation de séries temporelles, comme les changements de température terrestre.
+  Pour le choix du modèle, et suite aux tests de ces plusieurs algorithmes, le modèle ARIMA a été retenu pour prédire les températures jusqu'en 2050 car il obtient des résultats plus réels.
   Ce modèle est particulièrement adapté à la modélisation des données climatiques, car il permet de gérer à la fois la tendance et la saisonnalité des données.
   """
   st.write(texte_modelisation_fm_1)
@@ -1005,7 +1005,12 @@ if page == pages[3] :
   st.write(f'Score RMSE (Régression polynomiale): {rmse_poly}')
   st.write(f'Score R² (Régression polynomiale): {r2_poly}')
 
-  st.write("0.118 indique que, en moyenne, les prédictions du modèle s'écartent des valeurs réelles d'environ 0.12 °C.")
+  st.write("Un RMSE de 0.118 indique que, en moyenne, les prédictions du modèle s'écartent des valeurs réelles d'environ 0.12 °C.")
+  
+  texte_modelisation_fm_5 = """
+  Malgré de meilleurs scores pour le modèle de régression polynomiale, les données prédites avec ce modèle ne sont pas réelles.
+  """
+  st.write(texte_modelisation_fm_5)
 
   X_range = np.linspace(X['Year'].min(), X['Year'].max(), 100).reshape(-1, 1)
   y_range_pred = poly_model.predict(X_range)
@@ -1088,7 +1093,7 @@ if page == pages[3] :
   st.plotly_chart(fig)
 
   texte_modelisation_fm_4 = """
-  Heatmap des données historique avec prédictions des températures détaillés par hémisphères
+  Heatmap des données historiques avec prédictions des températures détaillées par hémisphères
   """
   st.write(texte_modelisation_fm_4)
 
