@@ -174,7 +174,38 @@ if page == pages[1] :
 
 if page == pages[2] :
   st.write("### III. DataVisualisation")
-
+    
+  st.write("### 0. Nuage de point des écarts de températures à la période de référence mois par mois")
+    
+  df_GLB_NASA = df_GLB_NASA.replace('***', float('NaN'))
+  df_GLB_NASA[df_GLB_NASA.columns[3:]] = df_GLB_NASA[df_GLB_NASA.columns[3:]].astype('float')
+  df_GLB_NASA['Year']=df_GLB_NASA.index
+  #st.dataframe(df_GLB_NASA.tail())
+    
+  df_month = pd.melt(df_GLB_NASA, id_vars=['Year'], value_vars=['Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+  df_month = df_month.replace(['Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                              ['01', '02','03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
+  df_month['Date'] = df_month['Year'].astype(str) + '-' + df_month['variable'].astype(str) + '-01'
+  df_month['Date'] = pd.to_datetime(df_month['Date'], yearfirst = True)
+  df_month = df_month.rename(columns={'variable': 'Month', 'value': 'Value'})
+  df_month['Absolute'] = np.absolute(df_month['Value'])
+  df_month['Month'] = df_month['Month'].astype(int)
+  st.dataframe(df_month.head())
+    
+  df_month_dropna = df_month.dropna()
+  df_month_dropna['Season'] = df_month_dropna['Month'].replace(np.arange(1,13),['Winter','Winter','Spring','Spring','Spring','Summer','Summer','Summer','Autumn','Autumn','Autumn','Winter'])
+  st.dataframe(df_month_dropna.head())
+    
+  fig0 = px.scatter(df_month_dropna, x="Year", y="Value",size = "Absolute", color = "Season",
+                 hover_name="Date",title='nuage de point des écarts de température',
+                 labels={
+                     "Year": "Année",
+                     "Value": "Ecart de température",
+                     "Season": "Season",
+                 },
+                 width=1000, height=800)
+  st.plotly_chart(fig0)
+    
   st.write("### 1. Evolution des émissions de Gaz à effet de serres dans le monde")
 
   """
@@ -226,11 +257,6 @@ if page == pages[2] :
   """
   
   st.write("### 2. Boite à moustache des écarts de température à la période de référence par saison et par période")
-
-  df_GLB_NASA = df_GLB_NASA.replace('***', float('NaN'))
-  df_GLB_NASA[df_GLB_NASA.columns[3:]] = df_GLB_NASA[df_GLB_NASA.columns[3:]].astype('float')
-  df_GLB_NASA['Year']=df_GLB_NASA.index
-  #st.dataframe(df_GLB_NASA.tail())
 
   df_season = pd.melt(df_GLB_NASA, id_vars=['Year'], value_vars=['J-D','DJF','MAM','JJA','SON'])
   df_season = df_season.replace(['J-D','DJF','MAM','JJA','SON'],['Year','Winter','Spring','Summer','Autumn'])
