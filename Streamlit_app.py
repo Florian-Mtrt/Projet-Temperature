@@ -244,8 +244,7 @@ if page == pages[2] :
                      "Value": "Ecart de température",
                      "Season": "Season",
                      "sub_Period": "Période"
-                 },
-              width=500)
+                 })
 
   st.plotly_chart(fig1)
 
