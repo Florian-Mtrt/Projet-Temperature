@@ -1027,10 +1027,15 @@ if page == pages[3] :
     
   
   st.write("### 2. Modélisation deu modèle ARIMA")
+
+  texte_modelisation_fm_2 = """
+  Nous avons mis en œuvre des techniques d'optimisation, notamment Grid Search, qui nous ont permis d'explorer différentes combinaisons de paramètres (p, d, q) pour notre modèle ARIMA. Cette approche a non seulement facilité
+  l'évaluation de la performance des modèles, mais a également conduit à l'identification des meilleures prévisions pour les températures futures.
+  """
+  st.write(texte_modelisation_fm_2)
     
   df_ZonAnn_Ts_dSST = load_data_zonann()
 
-  
   # Test de stationnarité
   result = adfuller(df_ZonAnn_Ts_dSST['Glob'])
   adf_stat = result[0]
@@ -1048,11 +1053,10 @@ if page == pages[3] :
   plt.legend()
   st.pyplot(fig_pred)
 
-  texte_modelisation_fm_2 = """
-  Nous avons mis en œuvre des techniques d'optimisation, notamment Grid Search, qui nous ont permis d'explorer différentes combinaisons de paramètres (p, d, q) pour notre modèle ARIMA. Cette approche a non seulement facilité
-  l'évaluation de la performance des modèles, mais a également conduit à l'identification des meilleures prévisions pour les températures futures.
+  texte_modelisation_fm_3 = """
+  Graphique représentant les prédictions des températures pour l’hémisphère nord, sud et le global
   """
-  st.write(texte_modelisation_fm_2)
+  st.write(texte_modelisation_fm_3)
 
   # ---- VISUALISATION Données Historiques et Prédictions Nord, Sud et Global---- #
   df_latitude_zones = ["Glob", "NHem", "SHem"]
@@ -1083,10 +1087,10 @@ if page == pages[3] :
     )
   st.plotly_chart(fig)
 
-  texte_modelisation_fm_3 = """
-  Graphique représentant les prédictions des températures pour l’hémisphère nord, sud et le global
+  texte_modelisation_fm_4 = """
+  Heatmap des données historique avec prédictions des températures détaillés par hémisphères
   """
-  st.write(texte_modelisation_fm_3)
+  st.write(texte_modelisation_fm_4)
 
   # ---- VISUALISATION DE LA HEATMAP (Nord, Équateur, Sud) ---- #
   fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(10, 12))
@@ -1116,7 +1120,4 @@ if page == pages[3] :
   plt.tight_layout()
   st.pyplot(fig)
 
-  texte_modelisation_fm_4 = """
-  Heatmap des données historique avec prédictions des températures détaillés par hémisphères
-  """
-  st.write(texte_modelisation_fm_4)
+  
