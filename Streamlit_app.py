@@ -1128,11 +1128,12 @@ if page == pages[3] :
   # ---- VISUALISATION DE LA HEATMAP (Nord, Equateur, Sud) ---- #
     
   heatmap_data = Resultats_ZonAnn_Ts_dSST[['Year', 'NHem', '24N-90N', '24S-24N', '90S-24S']]
-  heatmap_data.set_index('Year', inplace=True)
+  heatmap_data_melted = heatmap_data.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
 
   plt.figure(figsize=(10, 6))
-  sns.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt=".2f", linewidths=.5)
+  pivot_table = heatmap_data_melted.pivot("Zone", "Year", "Anomalie")
+  sns.heatmap(pivot_table, cmap='coolwarm', annot=True, fmt=".2f", linewidths=.5)
   plt.title('Heatmap des anomalies de SST par zone')
-  plt.xlabel('Zones')
-  plt.ylabel('Année')
+  plt.xlabel('Année')
+  plt.ylabel('Zones')
   st.pyplot(plt)
