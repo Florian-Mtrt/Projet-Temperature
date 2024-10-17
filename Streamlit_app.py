@@ -1129,13 +1129,6 @@ if page == pages[3] :
     
   heatmap_data = Resultats_ZonAnn_Ts_dSST[['Year', '24N-90N', '24S-24N', '90S-24S']]
   heatmap_data_melted = heatmap_data.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
-  #heatmap_data_melted['Zone'] = heatmap_data_melted['Zone'].replace({
-    #'24N-90N': 'Nord',
-    #'24S-24N': 'Equateur',
-    #'90S-24S': 'Sud'
-    #})
-
-  #heatmap_data_melted['Zone'] = pd.Categorical(heatmap_data_melted['Zone'], categories=['Nord', 'Equateur', 'Sud'], ordered=True)
     
   plt.figure(figsize=(10, 6))
   pivot_table = heatmap_data_melted.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
@@ -1151,7 +1144,7 @@ if page == pages[3] :
   heatmap_data_melted_2 = heatmap_data_2.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
     
   plt.figure(figsize=(10, 6))
-  pivot_table_2 = heatmap_data_melted_2.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
+  pivot_table_2 = heatmap_data_melted_2.pivot_table_2(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
   sns.heatmap(pivot_table_2, cmap='RdYlBu_r', annot=False, fmt=".2f", linewidths=.5)
   plt.title('Heatmap des Températures Historiques et des Prédictions Futures pour les Hémisphères')
   plt.xlabel('Année')
