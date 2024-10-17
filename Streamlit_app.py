@@ -1126,53 +1126,54 @@ if page == pages[3] :
 
   # ---- VISUALISATION DE LA HEATMAP (Nord, Equateur, Sud) ---- #
 
-  historique_df_nord_2490n = Hist_ZonAnn_Ts_dSST[['Year', '24N-90N']].copy()
-  historique_df_nord_2490n['Hémisphère'] = 'Nord'
-  historique_df_nord_2490n = historique_df_nord_2490n.rename(columns={'24N-90N': 'Température'})
+  historique_df_nord = Hist_ZonAnn_Ts_dSST[['Year', '24N-90N']].copy()
+  historique_df_nord['Hémisphère'] = 'Nord'
+  historique_df_nord = historique_df_nord.rename(columns={'24N-90N': 'Température'})
 
-  historique_df_equ_24s24n = Hist_ZonAnn_Ts_dSST[['Year', '24S-24N']].copy()
-  historique_df_equ_24s24n['Hémisphère'] = 'Equateur'
-  historique_df_equ_24s24n = historique_df_equ_24s24n.rename(columns={'24S-24N': 'Température'})
+  historique_df_equ = Hist_ZonAnn_Ts_dSST[['Year', '24S-24N']].copy()
+  historique_df_equ['Hémisphère'] = 'Équateur'
+  historique_df_equ = historique_df_equ.rename(columns={'24S-24N': 'Température'})
 
-  historique_df_sud_9024s = Hist_ZonAnn_Ts_dSST[['Year', '90S-24S']].copy()
-  historique_df_sud_9024s['Hémisphère'] = 'Sud'
-  historique_df_sud_9024s = historique_df_sud_9024s.rename(columns={'90S-24S': 'Température'})
+  historique_df_sud = Hist_ZonAnn_Ts_dSST[['Year', '90S-24S']].copy()
+  historique_df_sud['Hémisphère'] = 'Sud'
+  historique_df_sud = historique_df_sud.rename(columns={'90S-24S': 'Température'})
 
-  future_df_nord_2490n = Pred_ZonAnn_Ts_dSST[['Year', '24N-90N']].copy()
-  future_df_nord_2490n['Hémisphère'] = 'Nord'
-  future_df_nord_2490n = future_df_nord_2490n.rename(columns={'24N-90N': 'Prédictions'})
+  # Prédictions
+  future_df_nord = Pred_ZonAnn_Ts_dSST[['Year', '24N-90N']].copy()
+  future_df_nord['Hémisphère'] = 'Nord'
+  future_df_nord = future_df_nord.rename(columns={'24N-90N': 'Prédictions'})
 
-  future_df_equ_24s24n = Pred_ZonAnn_Ts_dSST[['Year', '24S-24N']].copy()
-  future_df_equ_24s24n['Hémisphère'] = 'Equateur'
-  future_df_equ_24s24n = future_df_equ_24s24n.rename(columns={'24S-24N': 'Prédictions'})
+  future_df_equ = Pred_ZonAnn_Ts_dSST[['Year', '24S-24N']].copy()
+  future_df_equ['Hémisphère'] = 'Équateur'
+  future_df_equ = future_df_equ.rename(columns={'24S-24N': 'Prédictions'})
 
-  future_df_sud_9024s = Pred_ZonAnn_Ts_dSST[['Year', '90S-24S']].copy()
-  future_df_sud_9024s['Hémisphère'] = 'Sud'
-  future_df_sud_9024s = future_df_sud_9024s.rename(columns={'90S-24S': 'Prédictions'})
+  future_df_sud = Pred_ZonAnn_Ts_dSST[['Year', '90S-24S']].copy()
+  future_df_sud['Hémisphère'] = 'Sud'
+  future_df_sud = future_df_sud.rename(columns={'90S-24S': 'Prédictions'})
 
-  historique_data = pd.concat([
-    historique_df_nord_2490n[['Year', 'Température', 'Hémisphère']],
-    historique_df_equ_24s24n[['Year', 'Température', 'Hémisphère']],
-    historique_df_sud_9024s[['Year', 'Température', 'Hémisphère']]
-    ], axis=0)
+  # Concaténation des données
+  historique_data = pd.concat([historique_df_nord, historique_df_equ, historique_df_sud], axis=0)
 
-  combined_data = pd.concat([
-    historique_data,
-    future_df_nord_2490n[['Year', 'Prédictions', 'Hémisphère']],
-    future_df_equ_24s24n[['Year', 'Prédictions', 'Hémisphère']],
-    future_df_sud_9024s[['Year', 'Prédictions', 'Hémisphère']]
-    ], axis=0)
+  combined_data = pd.concat([historique_data, 
+                           future_df_nord, 
+                           future_df_equ, 
+                           future_df_sud], axis=0)
 
+  # Vérification et nettoyage des données
   combined_data = combined_data.groupby(['Hémisphère', 'Year'], as_index=False).mean()
+  combined_data = combined_data.dropna()  # Supprimer les NaN
 
+  # Pivot pour la heatmap
   heatmap_pivot = combined_data.pivot(index='Hémisphère', columns='Year', values='Prédictions')
 
-  heatmap_pivot = heatmap_pivot.reindex(['Nord', 'Equateur', 'Sud'])
+  # Assurez-vous de conserver l'ordre des hémisphères
+  heatmap_pivot = heatmap_pivot.reindex(['Nord', 'Équateur', 'Sud'])
 
+  # Heatmap
   fig = px.imshow(heatmap_pivot, 
                 color_continuous_scale='RdYlBu_r', 
                 labels={'x': 'Année', 'y': 'Hémisphère', 'color': 'Température'},
-                title='Heatmap des Températures Historiques et des Prédictions Futures (Nord, Equateur, Sud)')
-  st.plotly_chart(fig)
+                title='Heatmap des Températures Historiques et des Prédictions Futures (Nord, Équateur, Sud)')
 
-  st.write(Hist_ZonAnn_Ts_dSST[['Year', 'Glob', 'NHem', 'SHem']].describe())
+  # Affichage dans Streamlit
+  st.plotly_chart(fig)
