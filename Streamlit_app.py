@@ -1175,5 +1175,4 @@ if page == pages[3] :
                 title='Heatmap des Températures Historiques et des Prédictions Futures (Nord, Equateur, Sud)')
   st.plotly_chart(fig)
 
-  st.write(Hist_ZonAnn_Ts_dSST.head())
-  st.write(Pred_ZonAnn_Ts_dSST.head())
+  st.write(Hist_ZonAnn_Ts_dSST[['Year', 'Glob', 'NHem', 'SHem']].describe())
