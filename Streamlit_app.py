@@ -220,11 +220,11 @@ if page == pages[2] :
   Nous commençons par examiner les tendances mondiales, en montrant l'augmentation des concentrations des différents types de GES (Gaz à Effet de Serres) dans l'atmosphère
   et principalement du dioxyde de carbone (CO₂), qui est l'un des principaux moteurs du réchauffement climatique.
   """
-  fig_fd_1 = plt.subplots()
-  sns.lineplot(x='year', y='temperature_change_from_ghg', data=df_github[df_github['country']=='World'], label='Gaz à effet de serre (GHG)')
-  sns.lineplot(x='year', y='temperature_change_from_ch4', data=df_github[df_github['country']=='World'], label='Méthane (CH4)')
-  sns.lineplot(x='year', y='temperature_change_from_co2', data=df_github[df_github['country']=='World'], label='Dioxyde de carbone (CO2)')
-  sns.lineplot(x='year', y='temperature_change_from_n2o', data=df_github[df_github['country']=='World'], label='Protoxyde d\'azote (N2O)')
+  fig_fd_1, ax1 = plt.subplots()
+  sns.lineplot(x='year', y='temperature_change_from_ghg', data=df_github[df_github['country']=='World'], ax=ax1, label='Gaz à effet de serre (GHG)')
+  sns.lineplot(x='year', y='temperature_change_from_ch4', data=df_github[df_github['country']=='World'], ax=ax1, label='Méthane (CH4)')
+  sns.lineplot(x='year', y='temperature_change_from_co2', data=df_github[df_github['country']=='World'], ax=ax1, label='Dioxyde de carbone (CO2)')
+  sns.lineplot(x='year', y='temperature_change_from_n2o', data=df_github[df_github['country']=='World'], ax=ax1, label='Protoxyde d\'azote (N2O)')
   plt.title('Changement de la température en fonction de différentes causes')
   plt.xlabel('Années')
   plt.ylabel('Changement de la température moyenne globale (en °C)')
@@ -234,7 +234,7 @@ if page == pages[2] :
   """
   L'impact le plus important est causé par le Dioxyde de carbone, avant le Méthane et le Protoxyde d'azote.
   """
-  fig_fd_2 = sns.lineplot(x='year', y='co2', data=df_github[df_github['country']=='World'])
+  fig_fd_2, ax2 = sns.lineplot(x='year', y='co2', data=df_github[df_github['country']=='World'], ax=ax2)
   plt.title('Emissisons de CO2 dans le monde par année')
   plt.xlabel('Années')
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
@@ -251,7 +251,7 @@ if page == pages[2] :
   df_github_bis = pd.concat([df_github, df_america_data], ignore_index=True)
   df_continents = df_github_bis[df_github_bis['country'].isin(['Africa (GCP)','America (GCP)','Asia (GCP)','Europe (GCP)','Oceania (GCP)'])]
 
-  fig_fd_3 = sns.lineplot(x='year', y='co2', hue='country', data=df_continents)
+  fig_fd_3, ax3 = sns.lineplot(x='year', y='co2', hue='country', data=df_continents, ax=ax3)
   plt.title('Emissions de CO2 par année par continents')
   plt.xlabel('Années')
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
