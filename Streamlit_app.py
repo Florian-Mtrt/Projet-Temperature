@@ -1131,7 +1131,7 @@ if page == pages[3] :
   heatmap_data_melted = heatmap_data.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
 
   plt.figure(figsize=(10, 6))
-  pivot_table = heatmap_data_melted.pivot("Zone", "Year", "Anomalie")
+  pivot_table = heatmap_data_melted.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
   sns.heatmap(pivot_table, cmap='coolwarm', annot=False, fmt=".2f", linewidths=.5)
   plt.title('Heatmap des anomalies de SST par zone')
   plt.xlabel('Année')
