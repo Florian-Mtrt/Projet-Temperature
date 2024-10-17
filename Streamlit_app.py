@@ -1018,7 +1018,7 @@ if page == pages[3] :
   fig_poly = plt.figure(figsize=(10, 6))
   plt.scatter(X_test, y_test, color='blue', label='Données Réelles')
   plt.plot(X_range, y_range_pred, color='red', label='Prédictions Polynomiales')
-  plt.errorbar(X_test, y_poly_pred, yerr=rmse_poly, fmt='o', color='orange', label='Intervalle d\'Erreur (RMSE)')
+  #plt.errorbar(X_test, y_poly_pred, yerr=rmse_poly, fmt='o', color='orange', label='Intervalle d\'Erreur (RMSE)')
   plt.title('Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)')
   plt.xlabel('Année')
   plt.ylabel('Température Globale (°C)')
