@@ -1129,11 +1129,11 @@ if page == pages[3] :
     
   heatmap_data = Resultats_ZonAnn_Ts_dSST[['Year', '24N-90N', '24S-24N', '90S-24S']]
   heatmap_data_melted = heatmap_data.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
-  heatmap_data_melted['Zone'] = heatmap_data_melted['Zone'].replace({
-    '24N-90N': 'Nord',
-    '24S-24N': 'Equateur',
-    '90S-24S': 'Sud'
-    })
+  #heatmap_data_melted['Zone'] = heatmap_data_melted['Zone'].replace({
+    #'24N-90N': 'Nord',
+    #'24S-24N': 'Equateur',
+    #'90S-24S': 'Sud'
+    #})
 
   #heatmap_data_melted['Zone'] = pd.Categorical(heatmap_data_melted['Zone'], categories=['Nord', 'Equateur', 'Sud'], ordered=True)
     
