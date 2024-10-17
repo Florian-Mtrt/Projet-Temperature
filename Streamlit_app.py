@@ -271,7 +271,7 @@ if page == pages[2] :
 
   fig5 = px.scatter(df_season, x="Year", y="Value", color="Season",
                     trendline="ols", # ligne de lissage de nuage de points des moindres carrés
-                    trendline_color_override="black",
+                    trendline_color_override="red",
                     facet_col='Season',
                     facet_col_wrap=2,
                     labels={
@@ -288,7 +288,7 @@ if page == pages[2] :
 
   fig6 = px.scatter(df_season, x="Year", y="Value", color="Season",
                  trendline='lowess', # ligne de lissage de nuage de points localement pondérée
-                 trendline_color_override="black",
+                 trendline_color_override="red",
                  facet_col='Season',
                  facet_col_wrap=2,
                  labels={
