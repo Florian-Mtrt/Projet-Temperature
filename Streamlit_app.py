@@ -1023,63 +1023,63 @@ if page == pages[3] :
   st.write("### 2. Modélisation deu modèle ARIMA")
   
 
-  df_ZonAnn_Ts_dSST = load_data_zonann()
+  #df_ZonAnn_Ts_dSST = load_data_zonann()
 
   
   # Test de stationnarité
-  result = adfuller(df_ZonAnn_Ts_dSST['Glob'])
-  adf_stat = result[0]
-  p_value = result[1]
-  st.write(f'Statistique du test ADF : {adf_stat}')
-  st.write(f'p-value: {p_value}')
+  #result = adfuller(df_ZonAnn_Ts_dSST['Glob'])
+  #adf_stat = result[0]
+  #p_value = result[1]
+  #st.write(f'Statistique du test ADF : {adf_stat}')
+  #st.write(f'p-value: {p_value}')
 
   # Vérifier si la série est stationnaire
-  if p_value > 0.05:
-      df_ZonAnn_Ts_dSST['Température Diff'] = df_ZonAnn_Ts_dSST['Glob'].diff().dropna()
+  #if p_value > 0.05:
+      #df_ZonAnn_Ts_dSST['Température Diff'] = df_ZonAnn_Ts_dSST['Glob'].diff().dropna()
 
-  @st.cache_data
-  def load_arima_params():
-      p, d, q = 1, 1, 1
-      return p, d, q
+  #@st.cache_data
+  #def load_arima_params():
+      #p, d, q = 1, 1, 1
+      #return p, d, q
 
-  p, d, q = load_arima_params()
+  #p, d, q = load_arima_params()
 
-  model = ARIMA(df_ZonAnn_Ts_dSST['Glob'], order=(p, d, q))
-  model_fit = model.fit()
-  st.write(f'AIC: {model_fit.aic}')
+  #model = ARIMA(df_ZonAnn_Ts_dSST['Glob'], order=(p, d, q))
+  #model_fit = model.fit()
+  #st.write(f'AIC: {model_fit.aic}')
     
-  years = df_ZonAnn_Ts_dSST['Year'].values
+  #years = df_ZonAnn_Ts_dSST['Year'].values
 
   # Diviser les données en train et test
-  train_size = int(0.8 * len(df_ZonAnn_Ts_dSST))
-  train_data = df_ZonAnn_Ts_dSST['Glob'][:train_size]
-  test_data = df_ZonAnn_Ts_dSST['Glob'][train_size:]
-  train_data.index = df_ZonAnn_Ts_dSST['Year'][:train_size]
-  test_data.index = df_ZonAnn_Ts_dSST['Year'][train_size:]
+  #train_size = int(0.8 * len(df_ZonAnn_Ts_dSST))
+  #train_data = df_ZonAnn_Ts_dSST['Glob'][:train_size]
+  #test_data = df_ZonAnn_Ts_dSST['Glob'][train_size:]
+  #train_data.index = df_ZonAnn_Ts_dSST['Year'][:train_size]
+  #test_data.index = df_ZonAnn_Ts_dSST['Year'][train_size:]
 
   # Ajuster le modèle ARIMA sur les données d'entraînement
-  model = ARIMA(train_data, order=(p, d, q))
-  model_fit = model.fit()
+  #model = ARIMA(train_data, order=(p, d, q))
+  #model_fit = model.fit()
 
   # Prédictions sur l'ensemble de test
-  predictions = model_fit.forecast(steps=len(test_data))
-  mse_arima = mean_squared_error(test_data, predictions)
-  st.write(f'Erreur Quadratique Moyenne du modèle ARIMA: {mse_arima}')
+  #predictions = model_fit.forecast(steps=len(test_data))
+  #mse_arima = mean_squared_error(test_data, predictions)
+  #st.write(f'Erreur Quadratique Moyenne du modèle ARIMA: {mse_arima}')
 
   # Prédictions futures
-  full_data = df_ZonAnn_Ts_dSST['Glob']
-  full_data.index = df_ZonAnn_Ts_dSST['Year']
+  #full_data = df_ZonAnn_Ts_dSST['Glob']
+  #full_data.index = df_ZonAnn_Ts_dSST['Year']
 
-  model_full = ARIMA(full_data, order=(p, d, q))
-  model_full_fit = model_full.fit()
-  start_year = 2023
-  end_year = 2050
-  years_to_predict = end_year - start_year + 1
-  last_value = full_data.iloc[-1]
-  future_predictions = model_full_fit.forecast(steps=years_to_predict)
-  future_predictions = np.concatenate([[last_value], future_predictions])
-  future_years = np.arange(start_year, end_year + 1)
-  future_df = pd.DataFrame({'Year': np.append([2023], future_years), 'Prédictions': future_predictions})
+  #model_full = ARIMA(full_data, order=(p, d, q))
+  #model_full_fit = model_full.fit()
+  #start_year = 2023
+  #end_year = 2050
+  #years_to_predict = end_year - start_year + 1
+  #last_value = full_data.iloc[-1]
+  #future_predictions = model_full_fit.forecast(steps=years_to_predict)
+  #future_predictions = np.concatenate([[last_value], future_predictions])
+  #future_years = np.arange(start_year, end_year + 1)
+  #future_df = pd.DataFrame({'Year': np.append([2023], future_years), 'Prédictions': future_predictions})
 
   # ---- VISUALISATION ---- #
   fig_pred = plt.figure(figsize=(12, 8))
