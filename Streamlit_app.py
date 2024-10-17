@@ -864,12 +864,13 @@ if page == pages[2] :
                  })
   st.plotly_chart(fig8)
 
-  st.write("### 8. Scatter Matrix entre les variables : écarts de températures, années, populations, émissions CO2, stock de CO2, et GHG (GreenHouse Gas ou Gaz à Effet de Serre)")
+  st.write("### 8bis. Scatter Matrix entre les variables : écarts de températures, années, populations, émissions CO2, stock de CO2, et GHG")
     
   fig9 = px.scatter_matrix(
     df_merge,
     dimensions=['Year','value', 'population','co2','cumulative_co2','total_ghg'],
     #title="Matrice des nuages de points entres les variables pré-séléctionnées",
+    width=800, height=800,
     color_continuous_scale='RdBu_r',
     labels={
                      "Year": "Année",
