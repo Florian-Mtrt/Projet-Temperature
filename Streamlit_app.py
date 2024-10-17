@@ -890,4 +890,107 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_fm_1)
 
+  st.write("### 1. Modélisation de la Régression Polynomiale")
+    
+  X = df_ZonAnn_Ts_dSST[['Year']]
+  y = df_ZonAnn_Ts_dSST['Glob']
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+  poly_degree = 3
+  poly_model = make_pipeline(PolynomialFeatures(degree=poly_degree), LinearRegression())
+  poly_model.fit(X_train, y_train)
+  y_poly_pred = poly_model.predict(X_test)
+  mse_poly = mean_squared_error(y_test, y_poly_pred)
+  rmse_poly = np.sqrt(mse_poly)
+  r2_poly = r2_score(y_test, y_poly_pred)
+  st.write(f'Score MSE (Régression polynomiale): {mse_poly}')
+  st.write(f'Score RMSE (Régression polynomiale): {rmse_poly}')
+  st.write(f'Score R² (Régression polynomiale): {r2_poly}')
+
+  st.write("0.118 indique que, en moyenne, les prédictions du modèle s'écartent des valeurs réelles d'environ 0.12 °C.")
+
+  X_range = np.linspace(X['Year'].min(), X['Year'].max(), 100).reshape(-1, 1)
+  y_range_pred = poly_model.predict(X_range)
+
+  fig_poly = plt.figure(figsize=(10, 6))
+  plt.scatter(X_test, y_test, color='blue', label='Données Réelles')
+  plt.plot(X_range, y_range_pred, color='red', label='Prédictions Polynomiales')
+  plt.errorbar(X_test, y_poly_pred, yerr=rmse_poly, fmt='o', color='orange', label='Intervalle d\'Erreur (RMSE)')
+  plt.title('Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)')
+  plt.xlabel('Année')
+  plt.ylabel('Température Globale (°C)')
+  plt.legend()
+  plt.grid()
+  st.plotly_chart(fig_poly)
+
+  st.write("### 2. Modélisation deu modèle ARIMA")
+
+
+  df_ZonAnn_Ts_dSST = load_data_zonann()
+
   
+  # Test de stationnarité
+  result = adfuller(df_ZonAnn_Ts_dSST['Glob'])
+  adf_stat = result[0]
+  p_value = result[1]
+  st.write(f'Statistique du test ADF : {adf_stat}')
+  st.write(f'p-value: {p_value}')
+
+  # Vérifier si la série est stationnaire
+  if p_value > 0.05:
+      df_ZonAnn_Ts_dSST['Température Diff'] = df_ZonAnn_Ts_dSST['Glob'].diff().dropna()
+
+  @st.cache_data
+  def load_arima_params():
+      p, d, q = 10, 3, 60
+      return p, d, q
+
+  p, d, q = load_arima_params()
+
+  model = ARIMA(df_ZonAnn_Ts_dSST['Glob'], order=(p, d, q))
+  model_fit = model.fit()
+  st.write(f'AIC: {model_fit.aic}')
+    
+  years = df_ZonAnn_Ts_dSST['Year'].values
+
+  # Diviser les données en train et test
+  train_size = int(0.8 * len(df_ZonAnn_Ts_dSST))
+  train_data = df_ZonAnn_Ts_dSST['Glob'][:train_size]
+  test_data = df_ZonAnn_Ts_dSST['Glob'][train_size:]
+  train_data.index = df_ZonAnn_Ts_dSST['Year'][:train_size]
+  test_data.index = df_ZonAnn_Ts_dSST['Year'][train_size:]
+
+  # Ajuster le modèle ARIMA sur les données d'entraînement
+  model = ARIMA(train_data, order=(p, d, q))
+  model_fit = model.fit()
+
+  # Prédictions sur l'ensemble de test
+  predictions = model_fit.forecast(steps=len(test_data))
+  mse_arima = mean_squared_error(test_data, predictions)
+  st.write(f'Erreur Quadratique Moyenne du modèle ARIMA: {mse_arima}')
+
+  # Prédictions futures
+  full_data = df_ZonAnn_Ts_dSST['Glob']
+  full_data.index = df_ZonAnn_Ts_dSST['Year']
+
+  model_full = ARIMA(full_data, order=(p, d, q))
+  model_full_fit = model_full.fit()
+  start_year = 2023
+  end_year = 2050
+  years_to_predict = end_year - start_year + 1
+  last_value = full_data.iloc[-1]
+  future_predictions = model_full_fit.forecast(steps=years_to_predict)
+  future_predictions = np.concatenate([[last_value], future_predictions])
+  future_years = np.arange(start_year, end_year + 1)
+  future_df = pd.DataFrame({'Year': np.append([2023], future_years), 'Prédictions': future_predictions})
+
+  # ---- VISUALISATION ---- #
+  fig_pred = plt.figure(figsize=(12, 8))
+  plt.plot(train_data.index, train_data, label='Données d\'Entraînement')
+  plt.plot(test_data.index, test_data, color='blue', label='Données Réelles')
+  plt.plot(future_df['Year'], future_df['Prédictions'], color='green', linestyle='--', label='Prédictions Futures ARIMA')
+  plt.title('Données historiques avec des prédictions ARIMA pour les 25 prochaines années (1880 à 2050)')
+  plt.xlabel('Année')
+  plt.ylabel('Température Globale (°C)')
+  plt.legend()
+  st.pyplot(fig_pred)
