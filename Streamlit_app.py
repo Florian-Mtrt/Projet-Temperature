@@ -235,6 +235,7 @@ if page == pages[2] :
   df_season = df_season.replace(['J-D','DJF','MAM','JJA','SON'],['Year','Winter','Spring','Summer','Autumn'])
   df_season = df_season.rename(columns={'variable': 'Season', 'value': 'Value'})
   df_season['sub_Period'] = df_season['Year'].apply(lambda x: '1880 à 1940' if x < 1940 else ('1980 à 2000' if 1980 <= x < 2000 else ('2000 à 2024' if 2000 <= x <= 2024 else '1940 à 1980')))
+  st.dataframe(df_season.tail())
 
   fig1 = px.box(df_season, x="Season", y="Value", color="Season", facet_col = "sub_Period",
             color_discrete_sequence=px.colors.qualitative.Dark24,
