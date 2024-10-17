@@ -942,7 +942,7 @@ if page == pages[3] :
 
   @st.cache_data
   def load_arima_params():
-      p, d, q = 10, 3, 3
+      p, d, q = 10, 3, 10
       return p, d, q
 
   p, d, q = load_arima_params()
