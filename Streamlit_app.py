@@ -277,7 +277,7 @@ if page == pages[2] :
                      "Season": "Season",
                      },
                     title="Nuage de points avec régression des moindres carrés",
-                    width=1000, height=400)
+                    width=1500, height=200)
   st.plotly_chart(fig4)
 
   st.write("### 6. Scatterplot des écarts de température à la période de référence par saison, regression localement pondérée")
