@@ -234,7 +234,8 @@ if page == pages[2] :
   """
   L'impact le plus important est causé par le Dioxyde de carbone, avant le Méthane et le Protoxyde d'azote.
   """
-  fig_fd_2, ax2 = sns.lineplot(x='year', y='co2', data=df_github[df_github['country']=='World'], ax=ax2)
+  fig_fd_2, ax2 = plt.subplots()
+  sns.lineplot(x='year', y='co2', data=df_github[df_github['country']=='World'], ax=ax2)
   plt.title('Emissisons de CO2 dans le monde par année')
   plt.xlabel('Années')
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
@@ -251,7 +252,8 @@ if page == pages[2] :
   df_github_bis = pd.concat([df_github, df_america_data], ignore_index=True)
   df_continents = df_github_bis[df_github_bis['country'].isin(['Africa (GCP)','America (GCP)','Asia (GCP)','Europe (GCP)','Oceania (GCP)'])]
 
-  fig_fd_3, ax3 = sns.lineplot(x='year', y='co2', hue='country', data=df_continents, ax=ax3)
+  fig_fd_3, ax3 = plt.subplots()
+  sns.lineplot(x='year', y='co2', hue='country', data=df_continents, ax=ax3)
   plt.title('Emissions de CO2 par année par continents')
   plt.xlabel('Années')
   plt.ylabel('Emissions de CO2 (en millions de tonnes)')
