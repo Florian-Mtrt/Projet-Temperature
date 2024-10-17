@@ -208,7 +208,7 @@ if page == pages[2] :
                     #title='nuage de point des écarts de température',
                     labels={
                      "Year": "Année",
-                     "Value": "Ecart de température",
+                     "Value": "Ecart de température (°C)",
                      "Season": "Season",
                  },
                  width=800, height=400)
@@ -284,7 +284,7 @@ if page == pages[2] :
              #title = "boxplot par saison par période des écarts de températures",
              labels={
                      "Year": "Année",
-                     "Value": "Ecart de température",
+                     "Value": "Ecart de température(°C)",
                      "Season": "Season",
                      "sub_Period": "Période"
                  })
@@ -297,7 +297,7 @@ if page == pages[2] :
   sns.color_palette(palette = "OrRd", as_cmap=True)
   fig2 = sns.catplot(x = "Season", y = "Value", kind = "swarm", hue = 'Year', data = df_season, aspect=2, palette = "OrRd")
   plt.xlabel('Saisons')
-  plt.ylabel('Ecart de températures')
+  plt.ylabel('Ecart de températures(°C)')
   st.pyplot(fig2)
 
   st.write("### 4. Catplot des écarts de température à la période de référence par période et par saison")
@@ -305,7 +305,7 @@ if page == pages[2] :
   sns.color_palette(palette = "OrRd", as_cmap=True)
   fig3 = sns.catplot(x = "sub_Period", y = "Value", hue = 'Season', data = df_season.loc[df_season['Season'] != "Year"], aspect=2,palette = "OrRd")
   plt.xlabel('Périodes')
-  plt.ylabel('Ecart de températures')
+  plt.ylabel('Ecart de températures(°C)')
   st.pyplot(fig3)
 
   st.write("### 5. Scatterplot des écarts de température à la période de référence par saison, regression linéaire")
@@ -317,7 +317,7 @@ if page == pages[2] :
                     facet_col_wrap=3,
                     labels={
                      "Year": "Année",
-                     "Value": "Ecart de température",
+                     "Value": "Ecart de température(°C)",
                      "Season": "Season",
                      },
                     #title="Nuage de points avec régression des moindres carrés",
@@ -334,7 +334,7 @@ if page == pages[2] :
                  facet_col_wrap=3,
                  labels={
                      "Year": "Année",
-                     "Value": "Ecart de température",
+                     "Value": "Ecart de température(°C)",
                      "Season": "Season",
                  },
                  #title="Evolution des écarts de températures avec lissage de nuage de points localement pondérée",
