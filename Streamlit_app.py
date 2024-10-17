@@ -190,20 +190,21 @@ if page == pages[2] :
   df_month = df_month.rename(columns={'variable': 'Month', 'value': 'Value'})
   df_month['Absolute'] = np.absolute(df_month['Value'])
   df_month['Month'] = df_month['Month'].astype(int)
-  st.dataframe(df_month.head())
+  #st.dataframe(df_month.head())
     
   df_month_dropna = df_month.dropna()
   df_month_dropna['Season'] = df_month_dropna['Month'].replace(np.arange(1,13),['Winter','Winter','Spring','Spring','Spring','Summer','Summer','Summer','Autumn','Autumn','Autumn','Winter'])
-  st.dataframe(df_month_dropna.head())
+  #st.dataframe(df_month_dropna.head())
     
   fig0 = px.scatter(df_month_dropna, x="Year", y="Value",size = "Absolute", color = "Season",
-                 hover_name="Date",title='nuage de point des écarts de température',
-                 labels={
+                    hover_name="Date",
+                    #title='nuage de point des écarts de température',
+                    labels={
                      "Year": "Année",
                      "Value": "Ecart de température",
                      "Season": "Season",
                  },
-                 width=1000, height=800)
+                 width=800, height=400)
   st.plotly_chart(fig0)
     
   st.write("### 1. Evolution des émissions de Gaz à effet de serres dans le monde")
