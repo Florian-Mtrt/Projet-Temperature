@@ -960,7 +960,7 @@ if page == pages[3] :
   C'est lui qui sera considéré pour la suite.
   """
   st.write(texte_modelisation_y_2)
-  st.write(### Températures réelles et prédites sur le niveau monde)
+  st.write("### Températures réelles et prédites sur le niveau monde")
 
   # première ficgure : prédiction sur le global du rfr
   fig_y_1 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_glob"], mode="lines", name = "T°C réelle, monde", marker_color = "#ffa781"),
@@ -973,7 +973,7 @@ if page == pages[3] :
   Le modèle entrainé sur le jeu de données monde (ou globale) a ensuite été appliqué sur les jeu de données des différentes hémisphères (sud et nord).
   """
   st.write(texte_modelisation_y_3)
-  st.write(### Températures réelles et prédites pour les hémisphères nord et sud)
+  st.write("### Températures réelles et prédites pour les hémisphères nord et sud")
         
   # 2 figure : entrainement rfr sur hémishère
   fig_y_2 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_hem_N"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "#9fafca"),
@@ -1003,7 +1003,7 @@ if page == pages[3] :
   Un linéaire de régression linéaire a été entrainé en reprenant les mêmes hypothèses pour vérifier que la non-propagation du modèle vienne du jeu de données et non du type de modèle.
   """
   st.write(texte_modelisation_y_5)
-  st.write(### Températures réelles et prédites sur le niveau monde, pour une régression linéaire)
+  st.write("### Températures réelles et prédites sur le niveau monde, pour une régression linéaire")
       
   # 4 ficgure : prédiction sur le global du lin
   fig_y_4 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_glob"], mode="lines", name = "T°C réelle, monde", marker_color = "#ffa781"),
@@ -1011,7 +1011,7 @@ if page == pages[3] :
   fig_y_4.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))  
   st.plotly_chart(fig_y_4, use_container_width=True)
        
-  st.write(### Propagation du modèle sur les jeux de données au niveau hémisphère nord et surd et par zone de latitude)
+  st.write("### Propagation du modèle sur les jeux de données au niveau hémisphère nord et surd et par zone de latitude")
      
   # 5 figure : entrainement lin sur hémishère
   fig_y_5 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_hem_N"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "#9fafca"),
