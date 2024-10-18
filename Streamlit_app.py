@@ -1184,3 +1184,23 @@ if page == pages[3] :
 
   plt.tight_layout()
   st.pyplot(fig)
+
+if page == pages[4] :
+  st.write("### V. Conclusion")
+
+  texte_modelisation_fm_10 = """
+  Au terme de notre projet sur le réchauffement climatique, nous avons exploré divers jeux de données afin de réaliser des visualisations, modélisations et prédictions. Après avoir testé plusieurs approches, notre analyse a révélé que le modèle ARIMA, s'est avérée le plus adaptée pour prédire les températures futures. 
+  
+  Nos résultats montrent que les niveaux de CO2 jouent un rôle prépondérant dans le réchauffement climatique.
+  
+  Nous avons constaté qu'une analyse globale des données mondiales ne permet pas toujours de tirer des conclusions fiables pour des régions spécifiques, illustrant la complexité du phénomène climatique.
+
+  Il est également important de noter que les données pour l'hémisphère sud sont moins abondantes que celles de l'hémisphère nord, ce qui pourrait indiquer que l'hémisphère sud se réchauffe moins rapidement, bien que cette conclusion nécessite davantage de données pour être confirmée.
+  
+  Sans facteurs externes ou changements dans les données collectées au fil des ans, il semble inévitable que la température de la Terre continue d'augmenter.
+  
+  Avec davantage de temps, de données et d'expérience en analyse et modélisation, nous aurions pu intégrer d'autres paramètres pour améliorer la précision de nos prédictions, en affinant notre approche au-delà des simples distinctions hémisphériques. Nous aurions également pu nous intéresser plus précisément aux causes identifiées participant au réchauffement climatique et prédire les évolutions possibles sans changement radical de l’activité humaine.
+  
+  Ce projet nous a permis de mieux comprendre les défis liés à l'étude du réchauffement climatique et l'importance d'une collecte de données exhaustive et précise pour formuler des prédictions fiables.
+  """
+  st.write(texte_modelisation_fm_10)
