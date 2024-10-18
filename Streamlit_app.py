@@ -1140,20 +1140,24 @@ if page == pages[3] :
   axes[0].set_xlabel('Année')
   axes[0].set_ylabel('Hémisphère')
 
+  if 2024 in pivot_table.columns:
+      axes[0].axvline(x=pivot_table.columns.get_loc(2024), color='green', linestyle='--', linewidth=2)
+
   # ---- VISUALISATION DE LA HEATMAP des Températures Historiques et des Prédictions Futures pour les Hémisphères ---- #
   heatmap_data_2 = Resultats_ZonAnn_Ts_dSST[['Year', '64N-90N', '44N-64N', '24N-44N', 'EQU-24N', '24S-EQU', '44S-24S', '64S-44S', '90S-64S']]
   heatmap_data_melted_2 = heatmap_data_2.melt(id_vars='Year', var_name='Zone', value_name='Anomalie')
 
   pivot_table_2 = heatmap_data_melted_2.pivot_table(index="Zone", columns="Year", values="Anomalie", aggfunc='mean')
   pivot_table_2 = pivot_table_2.reindex(['64N-90N', '44N-64N', '24N-44N',
-                                       'EQU-24N', '24S-EQU',
-                                       '44S-24S', '64S-44S', '90S-64S'])
+                                         'EQU-24N', '24S-EQU',
+                                         '44S-24S', '64S-44S', '90S-64S'])
   sns.heatmap(pivot_table_2, cmap='RdYlBu_r', vmin=-2.60, vmax=4, annot=False, fmt=".2f", ax=axes[1])
   axes[1].set_title('Heatmap des Températures Historiques et des Prédictions Futures pour les Hémisphères')
   axes[1].set_xlabel('Année')
   axes[1].set_ylabel('Hémisphère')
 
+  if 2024 in pivot_table_2.columns:
+      axes[1].axvline(x=pivot_table_2.columns.get_loc(2024), color='green', linestyle='--', linewidth=2)
+
   plt.tight_layout()
   st.pyplot(fig)
-
-  
