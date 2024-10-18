@@ -1021,6 +1021,20 @@ if page == pages[3] :
 
   st.write("### 1. Modélisation de la Régression Polynomiale")
     
+  X_range = np.linspace(X['Year'].min(), X['Year'].max(), 100).reshape(-1, 1)
+  y_range_pred = poly_model.predict(X_range)
+
+  fig_poly = plt.figure(figsize=(10, 6))
+  plt.scatter(X_test, y_test, color='blue', label='Données Réelles')
+  plt.plot(X_range, y_range_pred, color='red', label='Prédictions Polynomiales')
+  #plt.errorbar(X_test, y_poly_pred, yerr=rmse_poly, fmt='o', color='orange', label='Intervalle d\'Erreur (RMSE)')
+  plt.title('Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)')
+  plt.xlabel('Année')
+  plt.ylabel('Température Globale (°C)')
+  plt.legend()
+  plt.grid()
+  st.plotly_chart(fig_poly)
+
   X = df_ZonAnn_Ts_dSST[['Year']]
   y = df_ZonAnn_Ts_dSST['Glob']
   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -1042,20 +1056,6 @@ if page == pages[3] :
   Malgré de meilleurs scores pour le modèle de régression polynomiale, les données prédites avec ce modèle ne sont pas réelles.
   """
   st.write(texte_modelisation_fm_5)
-
-  X_range = np.linspace(X['Year'].min(), X['Year'].max(), 100).reshape(-1, 1)
-  y_range_pred = poly_model.predict(X_range)
-
-  fig_poly = plt.figure(figsize=(10, 6))
-  plt.scatter(X_test, y_test, color='blue', label='Données Réelles')
-  plt.plot(X_range, y_range_pred, color='red', label='Prédictions Polynomiales')
-  #plt.errorbar(X_test, y_poly_pred, yerr=rmse_poly, fmt='o', color='orange', label='Intervalle d\'Erreur (RMSE)')
-  plt.title('Température Globale : Données Réelles vs Prédictions (Régression Polynomiale)')
-  plt.xlabel('Année')
-  plt.ylabel('Température Globale (°C)')
-  plt.legend()
-  plt.grid()
-  st.plotly_chart(fig_poly)
 
   Pred_ZonAnn_Ts_dSST = pd.read_csv('Pred_ZonAnn_Ts_dSST.csv')
   Hist_ZonAnn_Ts_dSST = pd.read_csv('Hist_ZonAnn_Ts_dSST.csv')
