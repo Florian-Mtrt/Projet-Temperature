@@ -1020,6 +1020,18 @@ if page == pages[3] :
   st.write(texte_modelisation_fm_1)
 
   st.write("### 1. Modélisation de la Régression Polynomiale")
+
+  X = df_ZonAnn_Ts_dSST[['Year']]
+  y = df_ZonAnn_Ts_dSST['Glob']
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+  poly_degree = 3
+  poly_model = make_pipeline(PolynomialFeatures(degree=poly_degree), LinearRegression())
+  poly_model.fit(X_train, y_train)
+  y_poly_pred = poly_model.predict(X_test)
+  mse_poly = mean_squared_error(y_test, y_poly_pred)
+  rmse_poly = np.sqrt(mse_poly)
+  r2_poly = r2_score(y_test, y_poly_pred)
     
   X_range = np.linspace(X['Year'].min(), X['Year'].max(), 100).reshape(-1, 1)
   y_range_pred = poly_model.predict(X_range)
@@ -1035,17 +1047,6 @@ if page == pages[3] :
   plt.grid()
   st.plotly_chart(fig_poly)
 
-  X = df_ZonAnn_Ts_dSST[['Year']]
-  y = df_ZonAnn_Ts_dSST['Glob']
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-  poly_degree = 3
-  poly_model = make_pipeline(PolynomialFeatures(degree=poly_degree), LinearRegression())
-  poly_model.fit(X_train, y_train)
-  y_poly_pred = poly_model.predict(X_test)
-  mse_poly = mean_squared_error(y_test, y_poly_pred)
-  rmse_poly = np.sqrt(mse_poly)
-  r2_poly = r2_score(y_test, y_poly_pred)
   st.write(f'Score MSE (Régression polynomiale): {mse_poly}')
   st.write(f'Score RMSE (Régression polynomiale): {rmse_poly}')
   st.write(f'Score R² (Régression polynomiale): {r2_poly}')
