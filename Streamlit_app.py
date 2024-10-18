@@ -897,9 +897,7 @@ if page == pages[3] :
   st.write("### IV. Modélisation")
     # récupération des df déjà traité
   df_y = pd.read_csv('df_y.csv')
-  df_y_pred = pd.read_csv('df_y_pred.csv')
-  df_hem_N = pd.read_csv('df_hem_N.csv')
-  df_hem_S = pd.read_csv('df_hem_S.csv')
+  df_y_pred = pd.read_csv('df_streamlit.csv')
 
   texte_modelisation_y_1 = """
   Le but de modélisation est de prédire l'évolution des températures, par rapport à la référence, dans les années futures.
@@ -963,9 +961,11 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_y_2)
     
-  fig_y_1 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temperature_change"], mode="lines", name = "T°C réelle, monde", marker_color = "green"),
-          go.Scatter(x= df_y_pred["year"], y=df_y_pred["prediction"], mode="markers", name = "predictions", marker_color = "green")))
-  fig_y_1.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))         
+  # première ficgure : prédiction sur le global du rfr
+  fig_y_1 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_glob"], mode="lines", name = "T°C réelle, monde", marker_color = "#ffa781"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_glob_rfr"], mode="markers", name = "predictions", marker_color = "#5b0e2d")))
+  fig_y_1.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))  
+
   st.plotly_chart(fig_y_1, use_container_width=True)
 
   texte_modelisation_y_3 = """
@@ -973,12 +973,43 @@ if page == pages[3] :
   """
   st.write(texte_modelisation_y_3)
     
-  fig_y_2 = go.Figure(data = (go.Scatter(x= df_hem_N["year"], y=df_hem_N["temperature_change"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "blue"),
-          go.Scatter(x= df_hem_N["year"], y=df_hem_N["prediction"], mode="markers", name = "predictions", marker_color = "blue"),
-          go.Scatter(x= df_hem_S["year"], y=df_hem_S["temperature_change"], mode="lines", name = "T°C réelle, hémisphère sud", marker_color = "red"),
-          go.Scatter(x= df_hem_S["year"], y=df_hem_S["prediction"], mode="markers", name = "predictions", marker_color = "red")))
-  fig_y_2.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))         
+  # 2 figure : entrainement rfr sur hémishère
+  fig_y_2 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_hem_N"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "#9fafca"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_hem_N_rfr"], mode="markers", name = "predictions", marker_color = "#0e387a"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_hem_S"], mode="lines", name = "T°C réelle, hémisphère sud", marker_color = "#f9858b"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_hem_S_rfr"], mode="markers", name = "predictions", marker_color = "#ed335f")))
+  fig_y_2.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))
   st.plotly_chart(fig_y_2, use_container_width=True)
+
+  # 3 figure : entrainement rfr sur zone lat 24N_44N & 64N_90N
+  fig_y_3 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_64N_90N"], mode="lines", name = "T°C réelle, 64N-90N", marker_color = "blue"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_64N_90N_rfr"], mode="markers", name = "predictions", marker_color = "blue"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_24N_44N"], mode="lines", name = "T°C réelle, 24N-44N", marker_color = "red"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_24N_44N_rfr"], mode="markers", name = "predictions", marker_color = "red")))
+  fig_y_3.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))
+  st.plotly_chart(fig_y_3, use_container_width=True)
+
+  # 4 ficgure : prédiction sur le global du lin
+  fig_y_4 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_glob"], mode="lines", name = "T°C réelle, monde", marker_color = "#ffa781"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_glob_lin"], mode="markers", name = "predictions", marker_color = "#5b0e2d")))
+  fig_y_4.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))  
+  st.plotly_chart(fig_y_4, use_container_width=True)
+
+  # 5 figure : entrainement lin sur hémishère
+  fig_y_5 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_hem_N"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "blue"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_hem_N_lin"], mode="markers", name = "predictions", marker_color = "blue"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_hem_S"], mode="lines", name = "T°C réelle, hémisphère sud", marker_color = "red"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_hem_S_lin"], mode="markers", name = "predictions", marker_color = "red")))
+  fig_y_5.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))
+  st.plotly_chart(fig_y_5, use_container_width=True)
+
+  # 6 figure : entrainement rfr sur zone lat 64N_90N & 44S_24S
+  fig_y_6 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_64N_90N"], mode="lines", name = "T°C réelle, 64N-90N", marker_color = "blue"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_64N_90N_lin"], mode="markers", name = "predictions", marker_color = "blue"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_44S_24S"], mode="lines", name = "T°C réelle, 24S-44S", marker_color = "red"),
+          go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_44S_24S_lin"], mode="markers", name = "predictions", marker_color = "red")))
+  fig_y_6.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))
+  st.plotly_chart(fig_y_6, use_container_width=True)
           
   st.title("Prédiction des futures données de température")
   texte_modelisation_fm_1 = """
