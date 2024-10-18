@@ -1098,6 +1098,11 @@ if page == pages[3] :
   st.write(f'Statistique du test ADF : {adf_stat}')
   st.write(f'p-value: {p_value}')
 
+  texte_modelisation_fm_11 = """
+  Hyperparamètres retenu du modèle ARIMA : p, d, q = 10, 3, 60
+  """
+  st.write(texte_modelisation_fm_11)
+
   # ---- VISUALISATION Données Historiques et Prédictions Global---- #
   fig_pred = plt.figure(figsize=(12, 8))
   plt.plot(Hist_ZonAnn_Ts_dSST['Year'], Hist_ZonAnn_Ts_dSST['Glob'], label='Données Historiques', color='blue')
