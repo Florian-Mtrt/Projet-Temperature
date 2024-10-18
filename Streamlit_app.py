@@ -960,19 +960,21 @@ if page == pages[3] :
   C'est lui qui sera considéré pour la suite.
   """
   st.write(texte_modelisation_y_2)
-    
+  st.write(### Températures réelles et prédites sur le niveau monde)
+
   # première ficgure : prédiction sur le global du rfr
   fig_y_1 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_glob"], mode="lines", name = "T°C réelle, monde", marker_color = "#ffa781"),
           go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_glob_rfr"], mode="markers", name = "predictions", marker_color = "#5b0e2d")))
   fig_y_1.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))  
 
   st.plotly_chart(fig_y_1, use_container_width=True)
-
+      
   texte_modelisation_y_3 = """
-  Le modèle entrainé sur le jeu de données monde (ou globale) a ensuite été appliqué sur les jeu de données des différentes hémisphères (sud et nor)
+  Le modèle entrainé sur le jeu de données monde (ou globale) a ensuite été appliqué sur les jeu de données des différentes hémisphères (sud et nord).
   """
   st.write(texte_modelisation_y_3)
-    
+  st.write(### Températures réelles et prédites pour les hémisphères nord et sud)
+        
   # 2 figure : entrainement rfr sur hémishère
   fig_y_2 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_hem_N"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "#9fafca"),
           go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_hem_N_rfr"], mode="markers", name = "predictions", marker_color = "#0e387a"),
@@ -981,6 +983,13 @@ if page == pages[3] :
   fig_y_2.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))
   st.plotly_chart(fig_y_2, use_container_width=True)
 
+  texte_modelisation_y_4 = """
+  Les prédictions réalisées sur les hémisphères nord et sud  n'apportent pas satisfaction.
+  Si elles présentent la même tendance pour l'hémisphère nord, elles sont fausses pour l'hémisphère sud. 
+  Ces résultats se retrouvent également pour les autres découpages.
+  """
+  st.write(texte_modelisation_y_4)
+    
   # 3 figure : entrainement rfr sur zone lat 24N_44N & 64N_90N
   fig_y_3 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_64N_90N"], mode="lines", name = "T°C réelle, 64N-90N", marker_color = "#9fafca"),
           go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_64N_90N_rfr"], mode="markers", name = "predictions", marker_color = "#0e387a"),
@@ -989,12 +998,21 @@ if page == pages[3] :
   fig_y_3.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))
   st.plotly_chart(fig_y_3, use_container_width=True)
 
+  texte_modelisation_y_5 = """
+  L'hypothèse d'entraîner le modèle sur un jeu de données global (découpage monde) puis de l'appliquer sur les autres découpages ne se réalise pas.
+  Un linéaire de régression linéaire a été entrainé en reprenant les mêmes hypothèses pour vérifier que la non-propagation du modèle vienne du jeu de données et non du type de modèle.
+  """
+  st.write(texte_modelisation_y_5)
+  st.write(### Températures réelles et prédites sur le niveau monde, pour une régression linéaire)
+      
   # 4 ficgure : prédiction sur le global du lin
   fig_y_4 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_glob"], mode="lines", name = "T°C réelle, monde", marker_color = "#ffa781"),
           go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_glob_lin"], mode="markers", name = "predictions", marker_color = "#5b0e2d")))
   fig_y_4.update_layout(height=800, legend=dict( yanchor="top", y=0.99, xanchor="left", x=0.01 ))  
   st.plotly_chart(fig_y_4, use_container_width=True)
-
+       
+  st.write(### Propagation du modèle sur les jeux de données au niveau hémisphère nord et surd et par zone de latitude)
+     
   # 5 figure : entrainement lin sur hémishère
   fig_y_5 = go.Figure(data = (go.Scatter(x= df_y_pred["year"], y=df_y_pred["temp_hem_N"], mode="lines", name = "T°C réelle, hémisphère nord", marker_color = "#9fafca"),
           go.Scatter(x= df_y_pred["year"], y=df_y_pred["pred_temp_hem_N_lin"], mode="markers", name = "predictions", marker_color = "#0e387a"),
