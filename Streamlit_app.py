@@ -53,7 +53,7 @@ df_ZonAnn_Ts_dSST_bis = load_data_zonann_bis()
 st.title("Température Terrestre")
 
 st.sidebar.title("Sommaire")
-pages=["Introduction au projet", "Compréhension et manipulation des données", "DataVisualisation", "Modélisation"]
+pages=["Introduction au projet", "Compréhension et manipulation des données", "DataVisualisation", "Modélisation", "Conclusion"]
 page=st.sidebar.radio("Aller vers", pages)
 
 ##########################################################
