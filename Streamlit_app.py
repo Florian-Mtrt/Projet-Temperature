@@ -901,10 +901,10 @@ if page == pages[3] :
 
   texte_modelisation_y_1 = """
   Le but de modélisation est de prédire l'évolution des températures, par rapport à la référence, dans les années futures.
-  Nous avons des travaux précédents des données au niveau monte, à la maille de chaque hémisphère et découpées en zone de latitude.
+  Nous avons des travaux précédents des données au niveau monde, à la maille de chaque hémisphères et découpé en zone de latitude.
   Les hypothèses suivantes ont été prises:
-  - Un modèle entraîné sur les doonées du monde devrait être applicables sur les différents découpages
-  - Il est possible de prédire l'évolution enfonction des années et/ou du CO2
+  - Un modèle entraîné sur les données du monde devrait être applicables sur les différents découpages
+  - Il est possible de prédire l'évolution en fonction des années et/ou du CO2
 
   Première approche: essai "naïf" de différents modèles de régression:
   """
@@ -957,7 +957,7 @@ if page == pages[3] :
 
   texte_modelisation_y_2 = """
     Le modèle offrant les meilleurs résultats (avec ses hyper-paramètres par défaut) est le Random Forest Regressor.
-  C'est lui qui sera considéré pour la suite.
+  C'est lui qui sera utilisé pour la suite.
   """
   st.write(texte_modelisation_y_2)
   st.write("### Températures réelles et prédites sur le niveau monde")
