@@ -1000,7 +1000,7 @@ if page == pages[3] :
 
   texte_modelisation_y_5 = """
   L'hypothèse d'entraîner le modèle sur un jeu de données global (découpage monde) puis de l'appliquer sur les autres découpages ne se réalise pas.
-  Un linéaire de régression linéaire a été entrainé en reprenant les mêmes hypothèses pour vérifier que la non-propagation du modèle vienne du jeu de données et non du type de modèle.
+  Un modèle de régression linéaire a été entrainé en reprenant les mêmes hypothèses pour vérifier que la non-propagation du modèle vienne du jeu de données et non du type de modèle.
   """
   st.write(texte_modelisation_y_5)
   st.write("### Températures réelles et prédites sur le niveau monde, pour une régression linéaire")
